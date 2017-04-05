@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<style type="text/css">
+		html,
+		body,
+		#map {
+			height: 100%;
+		}
+		
+		body {
+			margin: 0;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="map"></div>
+
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	<script src="scripts/leaflet-providers.js"></script>
+	<script src="scripts/geo.js"></script>
+
+	<script type="text/javascript">
+		var map;
+		var geoPoints;
+		var geoLinks;
+		var mapLayers = [];
+
+		function initmap() {
+			// set up the map
+			map = new L.Map('map');
+
+			// create the tile layer with correct attribution
+			var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+			var osmAttrib = 'Map data © <a href="http://openstcontaineetmap.org">OpenStreetMap</a> contributors';
+			var osm = new L.TileLayer(osmUrl, { minZoom: 3, maxZoom: 19, attribution: osmAttrib });
+
+			// start the map in Israel
+			map.setView(new L.LatLng(31.046051, 34.851612), 9);
+			map.addLayer(osm);
+		}
+
+
+		initmap();
+
+		// adding the points
+		for (i = 0; i < geoPoints.length; i++) {
+			var pointll = new L.LatLng(geoPoints[i].lat, geoPoints[i].lon, true);
+			var point = new L.Marker(pointll);
+			point.data = geoPoints[i];
+			map.addLayer(point);
+			point.bindPopup("<h3>" + geoPoints[i].name + "</h3>" + geoPoints[i].id);
+			mapLayers.push(point);
+		}
+
+		// adding the links
+		for (i = 0; i < geoLinks.length; i++) {
+
+			//getting the from and to points
+			//todo - what happens if no from and to
+			var pointFrom = geoPoints.find(point => point.id === geoLinks[i].from);
+			var pointTo = geoPoints.find(point => point.id === geoLinks[i].to);
+
+			//getting the LatLng of the two points
+			var fromll = new L.LatLng(pointFrom.lat, pointFrom.lon, true);
+			var toll = new L.LatLng(pointTo.lat, pointTo.lon, true);
+
+			//creating the line between the points
+			var link = new L.polygon([
+				fromll,
+				toll
+			])
+
+			//adding the link data
+			link.data = geoLinks[i];
+			map.addLayer(link);
+			mapLayers.push(link);
+		}
+
+
+
+		//------------------------Leaflet Styles / Skins-------------------------------//
+
+		var defaultLayer = L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
+
+		var baseLayers = {
+			'OpenStreetMap Default': defaultLayer,
+			'OpenStreetMap German Style': L.tileLayer.provider('OpenStreetMap.DE'),
+			'OpenStreetMap Black and White': L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
+			'OpenStreetMap H.O.T.': L.tileLayer.provider('OpenStreetMap.HOT'),
+			'Thunderforest OpenCycleMap': L.tileLayer.provider('Thunderforest.OpenCycleMap'),
+			'Thunderforest Transport': L.tileLayer.provider('Thunderforest.Transport'),
+			'Thunderforest Landscape': L.tileLayer.provider('Thunderforest.Landscape'),
+			'Hydda Full': L.tileLayer.provider('Hydda.Full'),
+			'Stamen Toner': L.tileLayer.provider('Stamen.Toner'),
+			'Stamen Terrain': L.tileLayer.provider('Stamen.Terrain'),
+			'Stamen Watercolor': L.tileLayer.provider('Stamen.Watercolor'),
+			'Esri WorldStreetMap': L.tileLayer.provider('Esri.WorldStreetMap'),
+			'Esri DeLorme': L.tileLayer.provider('Esri.DeLorme'),
+			'Esri WorldTopoMap': L.tileLayer.provider('Esri.WorldTopoMap'),
+			'Esri WorldImagery': L.tileLayer.provider('Esri.WorldImagery'),
+			'Esri WorldTerrain': L.tileLayer.provider('Esri.WorldTerrain'),
+			'Esri WorldShadedRelief': L.tileLayer.provider('Esri.WorldShadedRelief'),
+			'Esri WorldPhysical': L.tileLayer.provider('Esri.WorldPhysical'),
+			'Esri OceanBasemap': L.tileLayer.provider('Esri.OceanBasemap'),
+			'Esri NatGeoWorldMap': L.tileLayer.provider('Esri.NatGeoWorldMap'),
+			'Esri WorldGrayCanvas': L.tileLayer.provider('Esri.WorldGrayCanvas')
+		};
+
+		var overlayLayers = {
+			'OpenSeaMap': L.tileLayer.provider('OpenSeaMap'),
+			'OpenWeatherMap Clouds': L.tileLayer.provider('OpenWeatherMap.Clouds'),
+			'OpenWeatherMap CloudsClassic': L.tileLayer.provider('OpenWeatherMap.CloudsClassic'),
+			'OpenWeatherMap Precipitation': L.tileLayer.provider('OpenWeatherMap.Precipitation'),
+			'OpenWeatherMap PrecipitationClassic': L.tileLayer.provider('OpenWeatherMap.PrecipitationClassic'),
+			'OpenWeatherMap Rain': L.tileLayer.provider('OpenWeatherMap.Rain'),
+			'OpenWeatherMap RainClassic': L.tileLayer.provider('OpenWeatherMap.RainClassic'),
+			'OpenWeatherMap Pressure': L.tileLayer.provider('OpenWeatherMap.Pressure'),
+			'OpenWeatherMap PressureContour': L.tileLayer.provider('OpenWeatherMap.PressureContour'),
+			'OpenWeatherMap Wind': L.tileLayer.provider('OpenWeatherMap.Wind'),
+			'OpenWeatherMap Temperature': L.tileLayer.provider('OpenWeatherMap.Temperature'),
+			'OpenWeatherMap Snow': L.tileLayer.provider('OpenWeatherMap.Snow')
+		};
+
+		L.control.layers(baseLayers, overlayLayers, { collapsed: false }).addTo(map);
+
+		// resize layers control to fit into view.
+		function resizeLayerControl() {
+			var layerControlHeight = document.body.clientHeight - (10 + 50);
+			var layerControl = document.getElementsByClassName('leaflet-control-layers-expanded')[0];
+
+			layerControl.style.overflowY = 'auto';
+			layerControl.style.maxHeight = layerControlHeight + 'px';
+		}
+		map.on('resize', resizeLayerControl);
+		resizeLayerControl();
+	</script>
+</body>
+
+</html>
