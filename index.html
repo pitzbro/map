@@ -18,6 +18,15 @@
 		.leaflet-popup-content {
 			width: 256px !important;
 		}
+
+		.link-agg-el {
+			background: #52ab00;
+			width: auto !important;
+			height: auto !important;
+			padding: 2px 8px;
+			border-radius: 3px;
+			color: #fff;
+		}
 	</style>
 </head>
 
@@ -34,6 +43,26 @@
 		var geoPoints;
 		var geoLinks;
 		var mapLayers = [];
+
+		// icons
+		var LeafIcon = L.Icon.extend({
+			options: {
+				shadowUrl: 'images/shadow.png',
+				iconSize:     [45, 45], // size of the icon
+				shadowSize:   [50, 50], // size of the shadow
+				iconAnchor:   [27, 50], // point of the icon which will correspond to marker's location
+				shadowAnchor: [25, 55],  // the same for the shadow
+				popupAnchor:  [-7, -56] // point from which the popup should open relative to the iconAnchor
+			}
+		});
+
+		var iconSBC = new LeafIcon({iconUrl: 'images/sbc.png'});
+		var iconGW = new LeafIcon({iconUrl: 'images/gw.png'});
+		var iconUnknown = new LeafIcon({iconUrl: 'images/unknown.png'});
+		var linkAggIcon = L.divIcon({
+			className: 'link-agg-el',
+		    html: '10/13'
+		});
 
 		function initmap() {
 			// set up the map
@@ -54,20 +83,7 @@
 
 		// Icons
 
-		var LeafIcon = L.Icon.extend({
-			options: {
-				shadowUrl: 'images/shadow.png',
-				iconSize:     [45, 45], // size of the icon
-				shadowSize:   [50, 50], // size of the shadow
-				iconAnchor:   [27, 50], // point of the icon which will correspond to marker's location
-				shadowAnchor: [25, 55],  // the same for the shadow
-				popupAnchor:  [-7, -56] // point from which the popup should open relative to the iconAnchor
-			}
-		});
 
-		var iconSBC = new LeafIcon({iconUrl: 'images/sbc.png'});
-		var iconGW = new LeafIcon({iconUrl: 'images/gw.png'});
-		var iconUnknown = new LeafIcon({iconUrl: 'images/unknown.png'});
 
 		// adding points of devices
 		geoPoints.forEach(point => {
@@ -124,7 +140,7 @@
 			console.log('center of link:', line.getBounds().getCenter());
 			var linkCenter = line.getBounds().getCenter();
 
-			var linkAgg = new L.Marker(linkCenter, {icon: iconSBC});
+			var linkAgg = new L.Marker(linkCenter, {icon: linkAggIcon});
 			linkAgg.data = 'data';
 			map.addLayer(linkAgg);
 			linkAgg.bindPopup('<img src="images/popupDevice.jpg">');
