@@ -15,6 +15,9 @@
 		body {
 			margin: 0;
 		}
+		.leaflet-popup-content {
+			width: 256px !important;
+		}
 	</style>
 </head>
 
@@ -49,39 +52,84 @@
 
 		initmap();
 
-		// adding the points
-		for (i = 0; i < geoPoints.length; i++) {
-			var pointll = new L.LatLng(geoPoints[i].lat, geoPoints[i].lon, true);
-			var point = new L.Marker(pointll);
-			point.data = geoPoints[i];
-			map.addLayer(point);
-			point.bindPopup("<h3>" + geoPoints[i].name + "</h3>" + geoPoints[i].id);
-			mapLayers.push(point);
-		}
+		// Icons
 
-		// adding the links
-		for (i = 0; i < geoLinks.length; i++) {
+		var LeafIcon = L.Icon.extend({
+			options: {
+				shadowUrl: 'images/shadow.png',
+				iconSize:     [45, 45], // size of the icon
+				shadowSize:   [50, 50], // size of the shadow
+				iconAnchor:   [27, 50], // point of the icon which will correspond to marker's location
+				shadowAnchor: [25, 55],  // the same for the shadow
+				popupAnchor:  [-7, -56] // point from which the popup should open relative to the iconAnchor
+			}
+		});
 
+		var iconSBC = new LeafIcon({iconUrl: 'images/sbc.png'});
+		var iconGW = new LeafIcon({iconUrl: 'images/gw.png'});
+		var iconUnknown = new LeafIcon({iconUrl: 'images/unknown.png'});
+
+		// adding points of devices
+		geoPoints.forEach(point => {
+			var pointll = new L.LatLng(point.lat, point.lon, true);
+			var icon = null;
+			switch(point.productType) {
+				case 'SBC':
+					icon = iconSBC;
+					break;
+				case 'GW':
+					icon = iconGW;
+					break;
+				case 'UNKNOWN':
+					icon = iconUnknown;
+					break;
+				default:
+					icon = iconUnknown;
+			}
+			var marker = new L.Marker(pointll, {icon: icon});
+			point.data = point;
+			map.addLayer(marker);
+			marker.bindPopup('<img src="images/popupDevice.jpg">');
+			mapLayers.push(marker);
+		})
+
+		// adding lines of links
+		geoLinks.forEach(link => {
 			//getting the from and to points
 			//todo - what happens if no from and to
-			var pointFrom = geoPoints.find(point => point.id === geoLinks[i].from);
-			var pointTo = geoPoints.find(point => point.id === geoLinks[i].to);
+			var pointFrom = geoPoints.find(point => point.id === link.from);
+			var pointTo = geoPoints.find(point => point.id === link.to);
 
 			//getting the LatLng of the two points
 			var fromll = new L.LatLng(pointFrom.lat, pointFrom.lon, true);
 			var toll = new L.LatLng(pointTo.lat, pointTo.lon, true);
 
 			//creating the line between the points
-			var link = new L.polygon([
-				fromll,
-				toll
-			])
+			var linkCoordinates = [fromll, toll]
+			var line = new L.polyline(linkCoordinates, {
+				color: '#52ab00',
+				weight: 3,
+				opacity: 0.8,
+				smoothFactor: 1,
+				lineJoin: 'round'
+			});
 
 			//adding the link data
-			link.data = geoLinks[i];
-			map.addLayer(link);
-			mapLayers.push(link);
-		}
+			line.data = link;
+			map.addLayer(line);
+			mapLayers.push(line);
+
+			// adding link Agg
+
+			console.log('center of link:', line.getBounds().getCenter());
+			var linkCenter = line.getBounds().getCenter();
+
+			var linkAgg = new L.Marker(linkCenter, {icon: iconSBC});
+			linkAgg.data = 'data';
+			map.addLayer(linkAgg);
+			linkAgg.bindPopup('<img src="images/popupDevice.jpg">');
+			mapLayers.push(linkAgg);
+		})
 
 
 
@@ -113,20 +161,7 @@
 			'Esri WorldGrayCanvas': L.tileLayer.provider('Esri.WorldGrayCanvas')
 		};
 
-		var overlayLayers = {
-			'OpenSeaMap': L.tileLayer.provider('OpenSeaMap'),
-			'OpenWeatherMap Clouds': L.tileLayer.provider('OpenWeatherMap.Clouds'),
-			'OpenWeatherMap CloudsClassic': L.tileLayer.provider('OpenWeatherMap.CloudsClassic'),
-			'OpenWeatherMap Precipitation': L.tileLayer.provider('OpenWeatherMap.Precipitation'),
-			'OpenWeatherMap PrecipitationClassic': L.tileLayer.provider('OpenWeatherMap.PrecipitationClassic'),
-			'OpenWeatherMap Rain': L.tileLayer.provider('OpenWeatherMap.Rain'),
-			'OpenWeatherMap RainClassic': L.tileLayer.provider('OpenWeatherMap.RainClassic'),
-			'OpenWeatherMap Pressure': L.tileLayer.provider('OpenWeatherMap.Pressure'),
-			'OpenWeatherMap PressureContour': L.tileLayer.provider('OpenWeatherMap.PressureContour'),
-			'OpenWeatherMap Wind': L.tileLayer.provider('OpenWeatherMap.Wind'),
-			'OpenWeatherMap Temperature': L.tileLayer.provider('OpenWeatherMap.Temperature'),
-			'OpenWeatherMap Snow': L.tileLayer.provider('OpenWeatherMap.Snow')
-		};
+		var overlayLayers = {};
 
 		L.control.layers(baseLayers, overlayLayers, { collapsed: false }).addTo(map);
 

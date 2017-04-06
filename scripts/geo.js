@@ -9,7 +9,7 @@ var geoPoints = [
         name: 'A',
         filtered: true,
         marker: true,
-        productType: "CCE",
+        productType: "SBC",
         adminState: "UNLOCKED",
         operState: "AVAILABLE"
     },
@@ -23,7 +23,7 @@ var geoPoints = [
         filtered: true,
         marker: true,
         originalId: 2,
-        productType: "GENERIC",
+        productType: "GW",
         adminState: "LOCKED",
         operState: "AVAILABLE"
     },
@@ -37,7 +37,7 @@ var geoPoints = [
         name: 'C',
         filtered: false,
         marker: false,
-        productType: "CLOUDBOND",
+        productType: "SBC",
         adminState: "UNLOCKED",
         operState: "AVAILABLE"
     },
@@ -51,7 +51,7 @@ var geoPoints = [
         name: 'D',
         filtered: false,
         marker: false,
-        productType: "test_unknown_type",
+        productType: "UNKNOWN",
         adminState: "LOCKED",
         operState: "AVAILABLE"
     }
