@@ -3,68 +3,38 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Open Street Map</title>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 
-	<!-- Leaflet Plugins -->
+	<!-- CSS -->
 	<link rel="stylesheet" href="srcMiniMap/Control.MiniMap.css" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.4/dist/MarkerCluster.css" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.4/dist/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="css/maps.css" />
 
-
-	<style type="text/css">
-		html,
-		body,
-		#map {
-			height: 100%;
-		}
-		
-		body {
-			margin: 0;
-		}
-		
-		.leaflet-popup-content {
-			width: 256px !important;
-		}
-		
-		.link-agg-el {
-			background: #52ab00;
-			width: auto !important;
-			height: auto !important;
-			padding: 2px 8px;
-			border-radius: 3px;
-			color: #fff;
-		}
-		
-		button {
-			background-color: orange;
-		}
-		
-		.input-container {
-			position: fixed;
-			bottom: 20px;
-			left: 20px;
-			z-index: 10000;
-		}
-	</style>
 </head>
 
 <body onload="initMap()">
 
-	<div id="map">
+	<nav class="main-nav">
+		<ul>
+			<li><a href="index.html" class="active">Open Street Map</a></li>
+			<li><a href="bingmap.html">Bing Map</a></li>
+		</ul>
+	</nav>
+
+	<div id="map" class="map">
 		<div class="input-container">
-			<div>
-				<input id="numPoints" type="number" min="0" max="5000" step="1" placeholder="# of points">
-				<button onclick="getGeoPointsByInput()">Add points</button>
-				<button onclick="getGeoLinksByInput()">Add Links</button>
-			</div>
+			<input id="numPoints" type="number" min="0" max="5000" step="1" placeholder="# of points">
+			<button onclick="getGeoPointsByInput()">Add points</button>
+			<button onclick="getGeoLinksByInput()">Add Links</button>
 		</div>
 	</div>
 
 
 	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 	<script src="scripts/leaflet-providers.js"></script>
-	
+
 	<!-- Leaflet Plugins -->
 	<script src="srcMiniMap/Control.MiniMap.js" type="text/javascript"></script>
 	<script src="https://unpkg.com/leaflet.markercluster@1.0.4/dist/leaflet.markercluster.js" type="text/javascript"></script>
