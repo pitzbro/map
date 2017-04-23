@@ -1,5 +1,5 @@
 function randomGeo(currCenter, radius) {
-    console.log('currCenter:',currCenter)
+    // console.log('currCenter:',currCenter)
     var y0 = currCenter.lat;
     var x0 = currCenter.lng;
     var rd = radius / 111300;
@@ -39,7 +39,6 @@ function getRandomGeoPointsNear(center, radius, count) {
             lat: randGeo.lat,
             lon: randGeo.lng,
             id: i,
-            originalId: i,
             name: makeName(),
             filtered: true,
             marker: true,
@@ -48,7 +47,7 @@ function getRandomGeoPointsNear(center, radius, count) {
             operState: "AVAILABLE"
         })
     }
-    console.log('geoPoints', geoPoints);
+    // console.log('geoPoints', geoPoints);
     return geoPoints;
 }
 
@@ -69,14 +68,13 @@ function getRandomLinks(geoPoints, percent) {
 
         var newLink = {
             id: i,
-            originalId: i,
             name: firstPoint.name + '-' + secondPoint.name,
             adminState: 'UNLOCKED',
             filtered: true,
             marker: false,
             connectionType: 'connection',
-            from: firstPoint,
-            to: secondPoint
+            from: firstPoint.id,
+            to: secondPoint.id
         }
         geoLinks.push(newLink);
 
