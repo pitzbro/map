@@ -1,13 +1,23 @@
 html,
-body,
-.map {
+body {
     height: 100%;
-    position: relative;
 }
 
 body {
     margin: 0;
     background: #7b7b7b;
+    overflow: hidden;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+.map {
+    height: calc(100% - 47px);
+    width: 100%;
+    position: relative;
 }
 
 .leaflet-popup-content {
@@ -35,9 +45,10 @@ button {
 }
 
 .main-nav ul {
-    margin-bottom: 0;
-    padding: 0 10px;
+    margin: 0;
+    padding: 20px 10px 0 10px;
     border-bottom: solid 1px buttonface;
+    /*height: 30px;*/
 }
 
 .main-nav li {
