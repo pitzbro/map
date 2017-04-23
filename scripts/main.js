@@ -1,8 +1,7 @@
 // Global Map
 var map;
 var gCluster = L.markerClusterGroup();
-var geoPoints = [];
-var geoLinks = [];
+
 var DISTANCE = 10000;
 
 
@@ -86,7 +85,7 @@ function initMap() {
     resizeLayerControl();
 
 
-    map.on('zoom', arrangeCluster);
+    // map.on('zoom', arrangeCluster);
 
     // Set the zoom level to fit all markers
     // var group = new L.featureGroup(mapMarkers);
@@ -94,14 +93,17 @@ function initMap() {
 
 }
 
-function arrangeCluster() {
-    console.log('arrangeCluster', gCluster);
-    var childMarkers = gCluster.getLayers();
-    console.log('childMarkers', childMarkers);
-}
+// function arrangeCluster() {
+//     console.log('arrangeCluster', gCluster);
+//     var childMarkers = gCluster.getLayers();
+//     console.log('childMarkers', childMarkers);
+// }
 
 //sets icon visual preferences 
 function createIcons(geoPoints) {
+
+    console.log('createIcons');
+
     var LeafIcon = L.Icon.extend({
         options: {
             shadowUrl: 'images/shadow.png',
@@ -139,7 +141,7 @@ function createIcons(geoPoints) {
             default:
                 icon = iconUnknown;
         }
-        var marker = new L.Marker(pointll, { icon: icon });
+        var marker = new L.Marker( pointll, { icon: icon } );
         marker.bindPopup('<img src="images/popupDevice.jpg">');
         marker.geoPointId = point.id;
         //point.data = point;
@@ -155,14 +157,19 @@ function createIcons(geoPoints) {
 }
 
 
-function renderLinks(geoLinks) {
+function renderLinks(links, pointsMap) {
+
+    console.log('renderLinks');
 
     // adding lines of links
     var mapLinks = [];
-    geoLinks.forEach(geoLink => {
+    links.forEach(geoLink => {
+
+        var fromPoint = pointsMap[geoLink.from];
+        var toPoint = pointsMap[geoLink.to];
 
         //creating the line between the points
-        var line = new L.polyline([geoLink.from, geoLink.to], {
+        var linkLine = new L.polyline([fromPoint, toPoint], {
             color: '#52ab00',
             weight: 3,
             opacity: 0.8,
@@ -171,9 +178,9 @@ function renderLinks(geoLinks) {
         });
 
         //adding the link data
-        line.data = geoLink;
-        map.addLayer(line);
-        mapLinks.push(line);
+        linkLine.data = geoLink;
+        map.addLayer(linkLine);
+        mapLinks.push(linkLine);
 
         // adding link Agg
 
@@ -195,29 +202,86 @@ function renderLinks(geoLinks) {
     return mapLinks;
 }
 
-function getGeoPointsByInput() {
+function getPointsAndLinks() {
+
+    console.log('getPointsAndLinks');
+    // we are going to combine points and links so
+    // that each point will "know" its connections
+
+    // points data IRL will be fetched from server
+    // here we create a random array
     var markersCount = document.getElementById('numPoints').value;
     var currCenter = map.getCenter();
-    var newGeoPoints = getRandomGeoPointsNear(currCenter, DISTANCE, markersCount);
-    newGeoPoints.forEach(function (newPoint) { geoPoints.push(newPoint) });
+    var geoPoints = getRandomGeoPointsNear(currCenter, DISTANCE, markersCount);
+
+    // for each point, add an empty array of linked points ids
+    // (where link direction is A -> B, we will add B to A.linkedGeoPointIds)
+    // another important action is creating a map object of {id: point}
+    var geoPointsMap = {};
+
+    geoPoints.forEach(function(point){
+        point.linkedGeoPointIds = [];
+        geoPointsMap[point.id] = point;
+    });
+    console.log('geoPoints:', geoPoints);
+    console.log('geoPointsMap:', geoPointsMap);
+
+    // links data IRL will be fetched from server
+    // here we create a random array 
+    var geoLinks = getGeoLinks(geoPoints);
+
+    // now we fill the 'linkedGeoPointIds' array for each geoPoint
+    createGeoPointsGraph(geoLinks, geoPointsMap);
+
+
     createIcons(geoPoints);
-    console.log('geoPoints.length:', geoPoints.length);
+    // console.log('geoPoints.length:', geoPoints.length);
+
+    renderLinks(geoLinks, geoPointsMap);
 }
 
-function getGeoLinksByInput() {
+function getGeoLinks(geoPoints) {
+    console.log('getGeoLinks');
+    var LINKS_MULTIPLE = 2;
 
-    if (geoPoints.length === 0) return;
-    var existingPointsNum = geoPoints.length;
-    // var linksPercentage = document.getElementById('numLinks').value / 100;
-    var linksMultiple = 2;
-    var existingLinksNum = geoLinks.length;
+    var geoLinks = getRandomLinks(geoPoints, LINKS_MULTIPLE);
 
-    var newLinksMultiple =
-        ((existingPointsNum * linksMultiple) - existingLinksNum) / existingPointsNum;
-
-    var newGeoLinks = getRandomLinks(geoPoints, newLinksMultiple);
-    newGeoLinks.forEach(function (newLink) { geoLinks.push(newLink) });
-
-    renderLinks(newGeoLinks);
     console.log('geoLinks.length:', geoLinks.length);
+    return geoLinks;
+}
+
+function createGeoPointsGraph (links, pointsMap) {
+    console.log('createGeoPointsGraph');
+
+    links.forEach(function (link) {
+        var fromId = link.from;
+        var toId = link.to;
+        var direction = link.direction;
+
+        // default is bi-directional (as specified by client)
+        switch (direction) {
+            case 'OUT':
+                pointsMap[fromId].linkedGeoPointIds.push(toId);
+                break;
+            case 'IN':
+                pointsMap[toId].linkedGeoPointIds.push(fromId);
+                break;
+            case 'BOTH' || undefined:
+                pointsMap[fromId].linkedGeoPointIds.push(toId);
+                pointsMap[toId].linkedGeoPointIds.push(fromId);                
+                break;
+            default:
+                pointsMap[fromId].linkedGeoPointIds.push(toId);
+                pointsMap[toId].linkedGeoPointIds.push(fromId);                
+                break;
+        }
+    })
+    gCluster.on('clusterclick', function (a) {
+        // a.layer is actually a cluster
+        console.log(a.layer.getAllChildMarkers()
+                            .map(function(e){
+                                return pointsMap[e.geoPointId].linkedGeoPointIds;
+                            })
+        );
+    });
 }
