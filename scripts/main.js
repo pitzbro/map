@@ -276,12 +276,50 @@ function createGeoPointsGraph (links, pointsMap) {
                 break;
         }
     })
-    gCluster.on('clusterclick', function (a) {
-        // a.layer is actually a cluster
-        console.log(a.layer.getAllChildMarkers()
-                            .map(function(e){
-                                return pointsMap[e.geoPointId].linkedGeoPointIds;
-                            })
-        );
+    gCluster.on('animationend', function () {
+        
+        var semiPoints = gCluster._featureGroup._layers;
+        console.log('semiPoints:', semiPoints);
+
+        var visiblePointsMap = getVisiblePointsMap(semiPoints);
+
+        console.log('visiblePointsMap:', visiblePointsMap);
+
+        var semiLinks = links.map ( function(link) {
+            link.from = visiblePointsMap[link.from];
+            link.to = visiblePointsMap[link.to];
+            return link;
+        });
+        console.log('semiLinks:', semiLinks);
+
+        semiLinks = semiLinks.filter( function(link) {
+            return link.to !== link.from
+        })
+        
+        console.log('semiLinks:', semiLinks);
+        
     });
+
+}
+
+function getVisiblePointsMap (semiPoints) {
+
+    var visiblePointsMap = {};
+
+    // point is a key
+    for (point in semiPoints) {
+
+        // if it's a marker (and not a cluster) - set it's id as the value and the geoPointId as the key
+        if ( !isNaN (semiPoints[point].geoPointId) ) {
+            visiblePointsMap[semiPoints[point].geoPointId] = +point;
+        }
+        // if it's a cluster - set it's id as the value for all it's geoPoints Ids (set them as keys)
+        else {
+            semiPoints[point].getAllChildMarkers().forEach(function(marker) {
+                visiblePointsMap[marker.geoPointId] = +point;
+            })
+        }
+    }
+
+    return visiblePointsMap;
 }
