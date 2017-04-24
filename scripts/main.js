@@ -125,7 +125,7 @@ function createIcons(geoPoints) {
     //gCluster = cluster;
 
 
-    var mapMarkers = geoPoints.map(point => {
+    var mapMarkers = geoPoints.map(function (point) {
         var pointll = new L.LatLng(point.lat, point.lon, true);
         var icon = null;
         switch (point.productType) {
@@ -157,54 +157,63 @@ function createIcons(geoPoints) {
 }
 
 
-function renderLinks(links, pointsMap) {
+function getLines(semiLinks, visiblePointsMap, semiPoints) {
 
-    console.log('renderLinks');
+    console.log('getLines');
+    console.log('pointsMap:', visiblePointsMap);
 
+    var lineOptions = {
+        color: '#52ab00',
+        weight: 3,
+        opacity: 0.8,
+        smoothFactor: 1,
+        lineJoin: 'round'
+    }
+
+    console.log('getLines::semiPoints:', semiPoints);
+    console.log('getLines::semiLinks:', semiLinks);
+    
     // adding lines of links
-    var mapLinks = [];
-    links.forEach(geoLink => {
+    var mapLines = semiLinks.reduce( function(acc, semiLink) {
 
-        var fromPoint = pointsMap[geoLink.from];
-        var toPoint = pointsMap[geoLink.to];
-
+        var fromPoint = semiPoints[semiLink.from]._latlng;
+        // console.log('fromPoint:', fromPoint);
+        var toPoint = semiPoints[semiLink.to]._latlng;
+        // console.log('toPoint:', toPoint);
+        
         //creating the line between the points
-        var linkLine = new L.polyline([fromPoint, toPoint], {
-            color: '#52ab00',
-            weight: 3,
-            opacity: 0.8,
-            smoothFactor: 1,
-            lineJoin: 'round'
-        });
-
+        var linkLine = new L.polyline([fromPoint, toPoint], lineOptions);
         //adding the link data
-        linkLine.data = geoLink;
-        map.addLayer(linkLine);
-        mapLinks.push(linkLine);
+        linkLine.data = semiLink;
+        
+        acc.push(linkLine);
+        return acc;
+    }, []);    
 
-        // adding link Agg
+    // adding link Agg
 
-        // console.log('center of link:', line.getBounds().getCenter());
-        // var linkCenter = line.getBounds().getCenter();
+    // console.log('center of link:', line.getBounds().getCenter());
+    // var linkCenter = line.getBounds().getCenter();
 
-        // var linkAggIcon = L.divIcon({
-        //     className: 'link-agg-el',
-        //     html: '10/13'
-        // });
+    // var linkAggIcon = L.divIcon({
+    //     className: 'link-agg-el',
+    //     html: '10/13'
+    // });
 
-        // var linkAgg = new L.Marker(linkCenter, { icon: linkAggIcon });
-        // linkAgg.data = 'data';
-        // map.addLayer(linkAgg);
-        // linkAgg.bindPopup('<img src="images/popupDevice.jpg">');
-        // mapLinks.push(linkAgg);
-    })
-    console.log('mapLinks:', mapLinks);
-    return mapLinks;
+    // var linkAgg = new L.Marker(linkCenter, { icon: linkAggIcon });
+    // linkAgg.data = 'data';
+    // map.addLayer(linkAgg);
+    // linkAgg.bindPopup('<img src="images/popupDevice.jpg">');
+    // mapLinks.push(linkAgg);
+
+    // console.log('mapLines:', mapLines);
+
+    return mapLines;
 }
 
 function getPointsAndLinks() {
 
-    console.log('getPointsAndLinks');
+    // console.log('getPointsAndLinks');
     // we are going to combine points and links so
     // that each point will "know" its connections
 
@@ -223,8 +232,8 @@ function getPointsAndLinks() {
         point.linkedGeoPointIds = [];
         geoPointsMap[point.id] = point;
     });
-    console.log('geoPoints:', geoPoints);
-    console.log('geoPointsMap:', geoPointsMap);
+    // console.log('geoPoints:', geoPoints);
+    // console.log('geoPointsMap:', geoPointsMap);
 
     // links data IRL will be fetched from server
     // here we create a random array 
@@ -237,21 +246,21 @@ function getPointsAndLinks() {
     createIcons(geoPoints);
     // console.log('geoPoints.length:', geoPoints.length);
 
-    renderLinks(geoLinks, geoPointsMap);
 }
 
 function getGeoLinks(geoPoints) {
-    console.log('getGeoLinks');
+    // console.log('getGeoLinks');
     var LINKS_MULTIPLE = 2;
 
     var geoLinks = getRandomLinks(geoPoints, LINKS_MULTIPLE);
 
-    console.log('geoLinks.length:', geoLinks.length);
+    // console.log('geoLinks.length:', geoLinks.length);
     return geoLinks;
 }
 
 function createGeoPointsGraph (links, pointsMap) {
-    console.log('createGeoPointsGraph');
+    // console.log('createGeoPointsGraph');
+    console.log('links:', links);
 
     links.forEach(function (link) {
         var fromId = link.from;
@@ -277,26 +286,43 @@ function createGeoPointsGraph (links, pointsMap) {
         }
     })
     gCluster.on('animationend', function () {
+
+        console.log('animationend');
+        var oldLinesLayer = this._nonPointGroup;
+        // console.log('oldLinesLayer:', oldLinesLayer);
+        oldLinesLayer.clearLayers();
+        // console.log('oldLinesLayer:', oldLinesLayer);        
         
+        // first, get the current visible markers and / or clusters
         var semiPoints = gCluster._featureGroup._layers;
         console.log('semiPoints:', semiPoints);
 
+        // second, create a map object
         var visiblePointsMap = getVisiblePointsMap(semiPoints);
 
-        console.log('visiblePointsMap:', visiblePointsMap);
-
+        // third, make a copy of the links but replace the 'from' and 'to':
+        // instead of geoPointId we save the element`s _leaflet_id
+        console.log('links:', links);
         var semiLinks = links.map ( function(link) {
-            link.from = visiblePointsMap[link.from];
-            link.to = visiblePointsMap[link.to];
-            return link;
-        });
-        console.log('semiLinks:', semiLinks);
-
-        semiLinks = semiLinks.filter( function(link) {
+            var semiLink = Object.assign({},link)
+            semiLink.from = visiblePointsMap[link.from];
+            semiLink.to = visiblePointsMap[link.to];
+            return semiLink;
+        })
+        // fourth, we filter out the inner-cluster links
+        .filter( function(link) {
             return link.to !== link.from
         })
-        
         console.log('semiLinks:', semiLinks);
+
+        var visibleLinks = getLines(semiLinks, visiblePointsMap, semiPoints);
+        console.log('visibleLinks:', visibleLinks);
+
+        var linesLayer = new L.layerGroup(visibleLinks);
+        console.log('linesLayer:', linesLayer);
+
+        linesLayer.addTo(gCluster);
+        console.log('gCluster:', gCluster);
         
     });
 
