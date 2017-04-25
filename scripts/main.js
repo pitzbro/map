@@ -4,7 +4,7 @@
 var map;
 var gCluster = L.markerClusterGroup({removeOutsideVisibleBounds: false, maxClusterRadius: 80});
 
-var DISTANCE = 10000;
+var DISTANCE = 1000000;
 
 function initMap() { 
     console.log('initMap');
@@ -267,7 +267,7 @@ function drawLines(links) {
     // third, make a copy of the links but replace the 'from' and 'to':
     // instead of geoPointId we save the element`s _leaflet_id, so
     // the latlngs will be drawn from the elements` position on the map
-    console.log('links:', links);
+    // console.log('links:', links);
     var semiLinks = links.map ( function(link) {
         var semiLink = Object.assign({},link) // TODO: replace es6 or bring polyfill
         semiLink.from = visiblePointsMap[link.from];
@@ -278,7 +278,7 @@ function drawLines(links) {
     .filter( function(link) {
         return link.to !== link.from
     })
-    console.log('semiLinks:', semiLinks);
+    // console.log('semiLinks:', semiLinks);
 
     // fifth, create polylines
     var visibleLinks = getLines(semiLinks, visiblePointsMap, semiPoints);
