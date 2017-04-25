@@ -1,3 +1,5 @@
+'use strict'
+
 function randomGeo(currCenter, radius) {
     // console.log('currCenter:',currCenter)
     var y0 = currCenter.lat;
@@ -31,7 +33,7 @@ function makeName() {
 function getRandomGeoPointsNear(center, radius, count) {
     var geoPoints = [];
     
-    for (i = 0; i < count; i++) {
+    for (var i = 0; i < count; i++) {
 
         var randGeo = randomGeo(center, radius);
 
