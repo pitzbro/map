@@ -2,9 +2,9 @@
 
 // Global Map
 var map;
-var gCluster = L.markerClusterGroup({removeOutsideVisibleBounds: false, maxClusterRadius: 100});
+var gCluster = L.markerClusterGroup({removeOutsideVisibleBounds: false, maxClusterRadius: 80});
 
-var DISTANCE = 20000000;
+var DISTANCE = 10000;
 
 function initMap() { 
     console.log('initMap');
@@ -144,31 +144,17 @@ function createIcons(geoPoints) {
 
 function getLines(semiLinks, visiblePointsMap, semiPoints) {
 
-    // console.log('getLines::pointsMap:', visiblePointsMap);
-
-    var lineOptions = {
-        color: '#52ab00',
-        weight: 1.5,
-        opacity: 0.4,
-        smoothFactor: 10,
-        lineJoin: 'round'
-    }
-
-    // console.log('getLines::semiPoints:', semiPoints);
-    // console.log('getLines::semiLinks:', semiLinks);
+    var lineOptions1 = { color: '#52ab00', weight: 1.5, opacity: 0.4, smoothFactor: 10, lineJoin: 'round' }
+    var lineOptions2 = { color: '#52ab00', weight: 1.5, opacity: 0.4, smoothFactor: 10, lineJoin: 'round', dashArray:'5, 5' }
     
     // adding lines of links
     var mapLines = semiLinks.reduce( function(acc, semiLink) {
 
-        // console.log('getLines::reduce::semiLink:', semiLink); 
-
         var fromPoint = semiPoints[semiLink.from]._latlng;
-        // console.log('fromPoint:', fromPoint);
         var toPoint = semiPoints[semiLink.to]._latlng;
-        // console.log('toPoint:', toPoint);
         
         //creating the line between the points
-        var linkLine = new L.polyline([fromPoint, toPoint], lineOptions);
+        var linkLine = new L.polyline([fromPoint, toPoint], lineOptions1);
         //adding the link data
         linkLine.data = semiLink;
         
@@ -192,13 +178,10 @@ function getLines(semiLinks, visiblePointsMap, semiPoints) {
     // linkAgg.bindPopup('<img src="images/popupDevice.jpg">');
     // mapLinks.push(linkAgg);
 
-    // console.log('mapLines:', mapLines);
-
     return mapLines;
 }
 
 function getPointsAndLinks() {
-    // console.log('getPointsAndLinks');
     // we are going to combine points and links so
     // that each point will "know" its connections
 
@@ -224,9 +207,7 @@ function getPointsAndLinks() {
     // now we fill the 'linkedGeoPointIds' array for each geoPoint
     createGeoPointsGraph(geoLinks, geoPointsMap);
 
-
     createIcons(geoPoints);
-    // console.log('geoPoints.length:', geoPoints.length);
 
     drawLines(geoLinks);
 
@@ -235,18 +216,15 @@ function getPointsAndLinks() {
 }
 
 function getGeoLinks(geoPoints) {
-    // console.log('getGeoLinks');
+
     var LINKS_MULTIPLE = 2;
 
     var geoLinks = getRandomLinks(geoPoints, LINKS_MULTIPLE);
 
-    // console.log('geoLinks.length:', geoLinks.length);
     return geoLinks;
 }
 
 function createGeoPointsGraph (links, pointsMap) {
-    // console.log('createGeoPointsGraph');
-    // console.log('links:', links);
 
     links.forEach(function (link) {
         var fromId = link.from;
@@ -275,8 +253,6 @@ function createGeoPointsGraph (links, pointsMap) {
 }
 
 function drawLines(links) {
-
-    console.log('reDrawLines');
     
     // before we create the lines we need to clear the old ones
     var oldLinesLayer = gCluster._nonPointGroup;
@@ -284,17 +260,14 @@ function drawLines(links) {
     
     // first, get the current visible markers and/or clusters
     var semiPoints = gCluster._featureGroup._layers;
-    // console.log('drawLines::gCluster:', gCluster);
-    // console.log('drawLines::semiPoints:', semiPoints);
 
     // second, create a map object
     var visiblePointsMap = getVisiblePointsMap(semiPoints);
-    // console.log('visiblePointsMap:', visiblePointsMap);
 
     // third, make a copy of the links but replace the 'from' and 'to':
     // instead of geoPointId we save the element`s _leaflet_id, so
     // the latlngs will be drawn from the elements` position on the map
-    // console.log('links:', links);
+    console.log('links:', links);
     var semiLinks = links.map ( function(link) {
         var semiLink = Object.assign({},link) // TODO: replace es6 or bring polyfill
         semiLink.from = visiblePointsMap[link.from];
@@ -305,7 +278,7 @@ function drawLines(links) {
     .filter( function(link) {
         return link.to !== link.from
     })
-    // console.log('semiLinks:', semiLinks);
+    console.log('semiLinks:', semiLinks);
 
     // fifth, create polylines
     var visibleLinks = getLines(semiLinks, visiblePointsMap, semiPoints);
@@ -313,31 +286,30 @@ function drawLines(links) {
 
     // sixth, group the lines
     var linesLayer = new L.layerGroup(visibleLinks);
-    // console.log('linesLayer:', linesLayer);
 
     // seventh, add this group to the cluster
     // they will be saved into _nonPointGroup
     linesLayer.addTo(gCluster);
-    // console.log('gCluster:', gCluster);
     
 }
 
 function getVisiblePointsMap (semiPoints) {
-    // for every geoPoint (id as the key) we want to get the representing visible element (id as the value)
-    // console.log('getVisiblePointsMap::semiPoints:', semiPoints.length);
+    // for every geoPoint (id as the key) we want to get the representing visible marker / cluster (id as the value)
     var visiblePointsMap = {};
 
-    // point is a key
-    for (var point in semiPoints) {
+    // semiPoints IS AN OBJECT with leaflet ids as keys and DOM elements as values
+    for (var llId in semiPoints) {
+
+        var element = semiPoints[llId];
 
         // if it's a marker (and not a cluster) - set it's id as the value and the geoPointId as the key
-        if ( !isNaN (semiPoints[point].geoPointId) ) {
-            visiblePointsMap[semiPoints[point].geoPointId] = +point;
+        if ( !isNaN (element.geoPointId) /* id could be zero */ ) {
+            visiblePointsMap[element.geoPointId] = +llId;
         }
         // if it's a cluster - set it's id as the value for all it's geoPoints Ids (set them as keys)
         else {
-            semiPoints[point].getAllChildMarkers().forEach(function(marker) {
-                visiblePointsMap[marker.geoPointId] = +point;
+            element.getAllChildMarkers().forEach(function(marker) {
+                visiblePointsMap[marker.geoPointId] = +llId;
             })
         }
     }
