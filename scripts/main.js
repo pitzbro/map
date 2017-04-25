@@ -6,7 +6,7 @@ var gCluster = L.markerClusterGroup({removeOutsideVisibleBounds: false, maxClust
 
 var DISTANCE = 20000000;
 
-function initMap() {
+function initMap() { 
     console.log('initMap');
 
     // start the map in Israel
