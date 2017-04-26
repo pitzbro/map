@@ -142,25 +142,42 @@ function createIcons(geoPoints) {
 }
 
 
-function getLines(semiLinks, visiblePointsMap, semiPoints) {
+function getLines(visibleLinks, visiblePoints) {
+
+    console.log('visibleLinks:', visibleLinks);
 
     var lineOptions1 = { color: '#52ab00', weight: 1.5, opacity: 0.4, smoothFactor: 10, lineJoin: 'round' }
     var lineOptions2 = { color: '#52ab00', weight: 1.5, opacity: 0.4, smoothFactor: 10, lineJoin: 'round', dashArray:'5, 5' }
     
     // adding lines of links
-    var mapLines = semiLinks.reduce( function(acc, semiLink) {
 
-        var fromPoint = semiPoints[semiLink.from]._latlng;
-        var toPoint = semiPoints[semiLink.to]._latlng;
-        
-        //creating the line between the points
-        var linkLine = new L.polyline([fromPoint, toPoint], lineOptions1);
-        //adding the link data
-        linkLine.data = semiLink;
-        
-        acc.push(linkLine);
-        return acc;
-    }, []);    
+    function reduceToLines (links, points, options) {
+        console.log('points:', points);
+        console.log('links:', links);
+
+        if (links.length === 0) return [];
+
+        return links.reduce( function(acc, link) {
+
+            var fromPoint = points[link.from]._latlng;
+            var toPoint = points[link.to]._latlng;
+            
+            //creating the line between the points
+            var linkLine = new L.polyline([fromPoint, toPoint], options);
+            //adding the link data
+            linkLine.data = link;
+            
+            acc.push(linkLine);
+            return acc;
+        }, [])    
+    }
+
+    var realLines = reduceToLines(visibleLinks.realLinks, visiblePoints, lineOptions1);
+    var semiLines = reduceToLines(visibleLinks.semiLinks, visiblePoints, lineOptions2);
+    // here NOA will insert aggregation markers and assign popups only for realLines
+
+    return [...realLines, ...semiLines];
+
 
     // adding link Agg
 
@@ -178,7 +195,6 @@ function getLines(semiLinks, visiblePointsMap, semiPoints) {
     // linkAgg.bindPopup('<img src="images/popupDevice.jpg">');
     // mapLinks.push(linkAgg);
 
-    return mapLines;
 }
 
 function getPointsAndLinks() {
@@ -254,38 +270,48 @@ function createGeoPointsGraph (links, pointsMap) {
 
 function drawLines(links) {
     
-    // before we create the lines we need to clear the old ones
+    // first, we create the lines we need to clear the old ones
     var oldLinesLayer = gCluster._nonPointGroup;
     oldLinesLayer.clearLayers();
     
-    // first, get the current visible markers and/or clusters
+    // second, get the current visible markers and/or clusters
     var semiPoints = gCluster._featureGroup._layers;
 
-    // second, create a map object
+    // third, create a map object
     var visiblePointsMap = getVisiblePointsMap(semiPoints);
 
-    // third, make a copy of the links but replace the 'from' and 'to':
+    // fourth, make a copy of the links but replace the 'from' and 'to':
     // instead of geoPointId we save the element`s _leaflet_id, so
     // the latlngs will be drawn from the elements` position on the map
-    console.log('links:', links);
-    var semiLinks = links.map ( function(link) {
-        var semiLink = Object.assign({},link) // TODO: replace es6 or bring polyfill
-        semiLink.from = visiblePointsMap[link.from];
-        semiLink.to = visiblePointsMap[link.to];
-        return semiLink;
-    })
-    // fourth, we filter out the inner-cluster links
-    .filter( function(link) {
-        return link.to !== link.from
-    })
-    console.log('semiLinks:', semiLinks);
+    var visibleLinks = links.reduce(function (acc, link) {
+        var newLink = Object.assign({},link) // TODO: replace es6 or bring polyfill
+        newLink.from = visiblePointsMap[link.from];
+        newLink.to = visiblePointsMap[link.to];
+
+        // filtering out the inner-cluster links
+        if (newLink.from === newLink.to) return acc;
+
+        // semiPoints is already a map object returned by leaflet!
+        // given a leaflet_id (key) it returns an element (value).
+        // if both to & from elements have a geoPointId
+        // (meaning they are markers and not clusters) then it's a real link
+        if (    isNaN( semiPoints[newLink.from].geoPointId ) ||
+                isNaN( semiPoints[newLink.to].geoPointId )    ) {
+                    acc.semiLinks.push(newLink)
+        }
+        else acc.realLinks.push(newLink);
+
+        return acc;
+    },{realLinks: [], semiLinks: []} );
+
+    console.log('semiLinks:', visibleLinks);
 
     // fifth, create polylines
-    var visibleLinks = getLines(semiLinks, visiblePointsMap, semiPoints);
+    var lines = getLines(visibleLinks, semiPoints);
     // console.log('visibleLinks:', visibleLinks);
 
     // sixth, group the lines
-    var linesLayer = new L.layerGroup(visibleLinks);
+    var linesLayer = new L.layerGroup(lines);
 
     // seventh, add this group to the cluster
     // they will be saved into _nonPointGroup
