@@ -347,3 +347,5 @@ function getVisiblePointsMap(semiPoints) {
 
     return visiblePointsMap;
 }
+
+// console.log();
