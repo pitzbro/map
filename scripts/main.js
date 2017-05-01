@@ -3,7 +3,14 @@
 // Global Map
 var map;
 
-var DISTANCE = 10000;
+var DISTANCE = 5000000;
+
+function drawAggs () {
+    var paths = document.querySelectorAll('path');
+    [].forEach.call(paths, function(path) {
+        
+    })
+}
 
 function initMap() { 
     console.log('initMap');
@@ -133,7 +140,7 @@ function createIcons(geoPoints, cluster) {
 function getLines(visibleLinks, visiblePoints) {
 
     var lineOptions1 = { color: '#52ab00', weight: 4, opacity: 0.4, smoothFactor: 10, lineJoin: 'round' }
-    var lineOptions2 = { color: '#52ab00', weight: 2, opacity: 0.4, smoothFactor: 10, lineJoin: 'round' }
+    var lineOptions2 = { color: '#52ab00', weight: 2, opacity: 0.4, smoothFactor: 10, lineJoin: 'round', dashArray: '1,5' }
     
     var lines = [];
     
@@ -147,40 +154,20 @@ function getLines(visibleLinks, visiblePoints) {
 
         //creating the line between the points
         if (line.type === 'semi') var linkLine = new L.polyline([fromPoint, toPoint], lineOptions2);
-        else var linkLine = new L.polyline([fromPoint, toPoint], lineOptions1);
-
-        console.log('linkLine:', linkLine);
-
-        // var linkCenter = linkLine.getBounds().getCenter();
-
-        // linkLine.bindTooltip('bla', {premanent: true});
-        // var tooltip = new L.tooltip('bla');
-        // console.log('tooltip:', tooltip);
-        var str = ''+ line.innerLinks.length;
-        linkLine.bindTooltip(str, {permanent: true});
-
+        else {
+            var linkLine = new L.polyline([fromPoint, toPoint], lineOptions1);
+            // show agg for real links only!!!
+            linkLine.bindTooltip(
+                `<span onclick="console.log('hello ${line.innerLinks.length}')">${line.innerLinks.length}</span>`,
+                {permanent: true, interactive: true}
+            );
+        }
+        
         lines.push(linkLine);
     }
 
     return lines;
 }
-
-    // adding link Agg
-
-    // console.log('center of link:', line.getBounds().getCenter());
-    // 
-
-    // var linkAggIcon = L.divIcon({
-    //     className: 'link-agg-el',
-    //     html: '10/13'
-    // });
-
-    // var linkAgg = new L.Marker(linkCenter, { icon: linkAggIcon });
-    // linkAgg.data = 'data';
-    // map.addLayer(linkAgg);
-    // linkAgg.bindPopup('<img src="images/popupDevice.jpg">');
-    // mapLinks.push(linkAgg);
-
 
 function getPointsAndLinks() {
     // we are going to combine points and links so
@@ -262,6 +249,8 @@ function createGeoPointsGraph (links, pointsMap) {
 }
 
 function drawLines(links, cluster) {
+
+    // console.log('cluster:', cluster);
     
     // first, we create the lines we need to clear the old ones
     var oldLinesLayer = cluster._nonPointGroup;
@@ -312,22 +301,6 @@ function drawLines(links, cluster) {
             // console.log('line.innerLinks:', line.innerLinks);
         }
  
-        // acc.forEach(function(line) {
-        //     console.log('line:', line);
-        //     if (line.from === newLink.from && line.to === newLink.to) {
-        //         line.innerLinks.push(newLink.id)
-        //         console.log('links:', acc);
-        //     }
-        //     else {
-        //         console.log('hello');
-        //         var newLine = {to: newLink.to, from: newLink.from, innerLinks: [newLink.id]};
-                
-        //         acc.push(newLine);
-        //         console.log('acc:', acc);
-                
-        //     }
-        // })
-
         return acc;
     }, {});
 
