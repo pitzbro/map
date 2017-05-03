@@ -1,3 +1,7 @@
+.leaflet-tooltip-pane {
+    z-index: 550;
+}
+
 .leaflet-tooltip {
     /*box-sizing: border-box;*/
     border-radius: 5px;
@@ -6,6 +10,7 @@
     box-shadow: none;
     width: 20px;
     height: 20px;
+    opacity: 1 !important;
     /*text-align: center;*/
 }
 

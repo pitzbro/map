@@ -20,8 +20,8 @@ function drawAggs () {
 function initMap() {
     console.log('initMap');
 
-    // start the map in Israel
-    var START_CENTER = { lng: 34.791462, lat: 31.252973 };
+    // start the map in USA
+    var START_CENTER = { lat: 38.86316, lng: -95.673907 };
 
     // set up the map
     map = new L.Map('map');
@@ -45,7 +45,7 @@ function initMap() {
     var osm = new L.TileLayer(osmUrl, { minZoom: 3, maxZoom: 19, attribution: osmAttrib });
 
 
-    map.setView(new L.LatLng(START_CENTER.lat, START_CENTER.lng), 6);
+    map.setView(new L.LatLng(START_CENTER.lat, START_CENTER.lng), 4);
     // map.addLayer(osm);
     map.addLayer(baseLayers.OSM);
     L.control.layers(baseLayers).addTo(map);
@@ -59,31 +59,30 @@ function initMap() {
 
     var defaultLayer = L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
 
-    var extraLayers = {
-        'OpenStreetMap Default': defaultLayer,
-        'OpenStreetMap German Style': L.tileLayer.provider('OpenStreetMap.DE'),
-        'OpenStreetMap Black and White': L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
-        'OpenStreetMap H.O.T.': L.tileLayer.provider('OpenStreetMap.HOT'),
-        'Thunderforest OpenCycleMap': L.tileLayer.provider('Thunderforest.OpenCycleMap'),
-        'Thunderforest Transport': L.tileLayer.provider('Thunderforest.Transport'),
-        'Thunderforest Landscape': L.tileLayer.provider('Thunderforest.Landscape'),
-        'Hydda Full': L.tileLayer.provider('Hydda.Full'),
-        'Stamen Toner': L.tileLayer.provider('Stamen.Toner'),
-        'Stamen Terrain': L.tileLayer.provider('Stamen.Terrain'),
-        'Stamen Watercolor': L.tileLayer.provider('Stamen.Watercolor'),
-        'Esri WorldStreetMap': L.tileLayer.provider('Esri.WorldStreetMap'),
-        'Esri WorldTopoMap': L.tileLayer.provider('Esri.WorldTopoMap'),
-        'Esri WorldImagery': L.tileLayer.provider('Esri.WorldImagery'),
-        'Esri WorldTerrain': L.tileLayer.provider('Esri.WorldTerrain'),
-        'Esri WorldShadedRelief': L.tileLayer.provider('Esri.WorldShadedRelief'),
-        'Esri OceanBasemap': L.tileLayer.provider('Esri.OceanBasemap'),
-        'Esri NatGeoWorldMap': L.tileLayer.provider('Esri.NatGeoWorldMap'),
-        'Esri WorldGrayCanvas': L.tileLayer.provider('Esri.WorldGrayCanvas')
-    };
+    // var extraLayers = {
+    //     'OpenStreetMap Default': defaultLayer,
+    //     'OpenStreetMap German Style': L.tileLayer.provider('OpenStreetMap.DE'),
+    //     'OpenStreetMap Black and White': L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
+    //     'OpenStreetMap H.O.T.': L.tileLayer.provider('OpenStreetMap.HOT'),
+    //     'Thunderforest OpenCycleMap': L.tileLayer.provider('Thunderforest.OpenCycleMap'),
+    //     'Thunderforest Transport': L.tileLayer.provider('Thunderforest.Transport'),
+    //     'Thunderforest Landscape': L.tileLayer.provider('Thunderforest.Landscape'),
+    //     'Hydda Full': L.tileLayer.provider('Hydda.Full'),
+    //     'Stamen Toner': L.tileLayer.provider('Stamen.Toner'),
+    //     'Stamen Terrain': L.tileLayer.provider('Stamen.Terrain'),
+    //     'Stamen Watercolor': L.tileLayer.provider('Stamen.Watercolor'),
+    //     'Esri WorldStreetMap': L.tileLayer.provider('Esri.WorldStreetMap'),
+    //     'Esri WorldTopoMap': L.tileLayer.provider('Esri.WorldTopoMap'),
+    //     'Esri WorldImagery': L.tileLayer.provider('Esri.WorldImagery'),
+    //     'Esri WorldTerrain': L.tileLayer.provider('Esri.WorldTerrain'),
+    //     'Esri WorldShadedRelief': L.tileLayer.provider('Esri.WorldShadedRelief'),
+    //     'Esri OceanBasemap': L.tileLayer.provider('Esri.OceanBasemap'),
+    //     'Esri NatGeoWorldMap': L.tileLayer.provider('Esri.NatGeoWorldMap'),
+    //     'Esri WorldGrayCanvas': L.tileLayer.provider('Esri.WorldGrayCanvas')
+    // };
 
-    var overlayLayers = {};
-
-    L.control.layers(extraLayers, overlayLayers, { collapsed: false }).addTo(map);
+    // var overlayLayers = {};
+    // L.control.layers(extraLayers, overlayLayers, { collapsed: false }).addTo(map);
 
     // resize layers control to fit into view.
     function resizeLayerControl() {
@@ -134,7 +133,7 @@ function createIcons(geoPoints, cluster) {
                 icon = iconUnknown;
         }
         var marker = new L.Marker(pointll, { icon: icon });
-        marker.bindPopup('<img src="images/popupDevice.jpg">');
+        marker.bindPopup(`<img src="images/popupDevice.jpg"><div>Device ID ${point.id}</div>`);
         marker.geoPointId = point.id;
 
         cluster.addLayer(marker);
@@ -221,7 +220,8 @@ function getPointsAndLinks() {
     // here we create a random array
     var markersCount = document.getElementById('numPoints').value;
     var currCenter = map.getCenter();
-    var geoPoints = getRandomGeoPointsNear(currCenter, DISTANCE, markersCount);
+    // var geoPoints = getRandomGeoPointsNear(currCenter, DISTANCE, markersCount);
+    var geoPoints = myDevices;
     // for each point, add an empty array of linked points ids
     // (where link direction is A -> B, we will add B to A.linkedGeoPointIds)
     // another important action is creating a map object of {id: point}
@@ -234,7 +234,8 @@ function getPointsAndLinks() {
 
     // links data IRL will be fetched from server
     // here we create a random array 
-    var geoLinks = getGeoLinks(geoPoints);
+    // var geoLinks = getGeoLinks(geoPoints);
+    var geoLinks = myLinks;
 
     // now we fill the 'linkedGeoPointIds' array for each geoPoint
     createGeoPointsGraph(geoLinks, geoPointsMap);
@@ -417,3 +418,5 @@ function getVisiblePointsMap (points) {
 
     return visiblePointsMap;
 }
+
+// getPointsAndLinks();
