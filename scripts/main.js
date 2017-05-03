@@ -166,6 +166,10 @@ function getLines(visibleLinks, visiblePoints) {
                 `<span onclick="console.log('hello ${line.innerLinks.length}')">${line.innerLinks.length}</span>`,
                 {permanent: true, interactive: true}
             );
+            // console.log('line =', line)
+            var popupHtml = '';
+            line.innerLinks.forEach(linkID => popupHtml += `<div>Line ${linkID}</div>`)
+            linkLine.bindPopup(`${popupHtml}`);
         }
         
         lines.push(linkLine);
