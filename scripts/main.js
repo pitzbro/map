@@ -11,8 +11,13 @@ function drawAggs () {
         
     })
 }
+///incoming change
+// var gCluster = L.markerClusterGroup({ removeOutsideVisibleBounds: false, maxClusterRadius: 80 });
 
-function initMap() { 
+// var DISTANCE = 1000000;
+
+
+function initMap() {
     console.log('initMap');
 
     // start the map in Israel
@@ -128,7 +133,7 @@ function createIcons(geoPoints, cluster) {
             default:
                 icon = iconUnknown;
         }
-        var marker = new L.Marker( pointll, { icon: icon } );
+        var marker = new L.Marker(pointll, { icon: icon });
         marker.bindPopup('<img src="images/popupDevice.jpg">');
         marker.geoPointId = point.id;
 
@@ -165,9 +170,44 @@ function getLines(visibleLinks, visiblePoints) {
         
         lines.push(linkLine);
     }
+// function getLines(semiLinks, visiblePointsMap, semiPoints) {
+
+//     // adding lines of links
+//     var mapLines = semiLinks.reduce(function (acc, semiLink) {
+
+//         var fromPoint = semiPoints[semiLink.from]._latlng;
+//         var toPoint = semiPoints[semiLink.to]._latlng;
+
+//         //creating the line between the points
+//         var linkLine = new L.polyline([fromPoint, toPoint], lineOptions1);
+
+//         //find center link
+//         // var linkCenter = linkLine.getBounds().getCenter();
+//         // console.log('center of link:', linkCenter);
+
+//         //adding the link data
+//         linkLine.data = semiLink;
+//         // linkLine.center = linkCenter;
+//         acc.push(linkLine);
+//         return acc;
+//     }, []);
+
+
 
     return lines;
 }
+
+// function drawCenterMarker(mapLinks) {
+//     var linkAggIcon = L.divIcon({
+//         className: 'link-agg-el',
+//         html: '10/13'
+//     });
+
+//     mapLinks.forEach(function(link) {
+//       L.marker({ lat: link.center.lat, lng: link.center.lng }, { icon: linkAggIcon }).addTo(map);
+//     });
+
+// }
 
 function getPointsAndLinks() {
     // we are going to combine points and links so
@@ -183,7 +223,7 @@ function getPointsAndLinks() {
     // another important action is creating a map object of {id: point}
     var geoPointsMap = {};
 
-    geoPoints.forEach(function(point){
+    geoPoints.forEach(function (point) {
         point.linkedGeoPointIds = [];
         geoPointsMap[point.id] = point;
     });
@@ -203,6 +243,8 @@ function getPointsAndLinks() {
 
 }
 
+    // gCluster.on('animationend', function () { drawLines(geoLinks) });
+
 function getGeoPointsMap(geoPoints) {
     return geoPoints.reduce(function(acc, point) {
         point.linkedGeoPointIds = []; // we're preparing
@@ -220,7 +262,7 @@ function getGeoLinks(geoPoints) {
     return geoLinks;
 }
 
-function createGeoPointsGraph (links, pointsMap) {
+function createGeoPointsGraph(links, pointsMap) {
 
     links.forEach(function (link) {
         var fromId = link.from;
@@ -237,11 +279,11 @@ function createGeoPointsGraph (links, pointsMap) {
                 break;
             case 'BOTH' || undefined:
                 pointsMap[fromId].linkedGeoPointIds.push(toId);
-                pointsMap[toId].linkedGeoPointIds.push(fromId);                
+                pointsMap[toId].linkedGeoPointIds.push(fromId);
                 break;
             default:
                 pointsMap[fromId].linkedGeoPointIds.push(toId);
-                pointsMap[toId].linkedGeoPointIds.push(fromId);                
+                pointsMap[toId].linkedGeoPointIds.push(fromId);
                 break;
         }
     })
@@ -258,6 +300,16 @@ function drawLines(links, cluster) {
     
     // second, get the current visible markers and/or clusters
     var visiblePoints = cluster._featureGroup._layers;
+
+// function drawLines(links) {
+// console.log('gCluster:',gCluster);
+//     // before we create the lines we need to clear the old ones
+//     var oldLinesLayer = gCluster._nonPointGroup;
+//     oldLinesLayer.clearLayers();
+
+//     // first, get the current visible markers and/or clusters
+//     var semiPoints = gCluster._featureGroup._layers;
+
 
     // third, create a map object
     var visiblePointsMap = getVisiblePointsMap(visiblePoints);
@@ -310,6 +362,24 @@ function drawLines(links, cluster) {
     var lines = getLines(visibleLinks, visiblePoints);
     // console.log('visibleLinks:', visibleLinks);
 
+    // console.log('links:', links);
+    // var semiLinks = links.map(function (link) {
+    //     var semiLink = Object.assign({}, link) // TODO: replace es6 or bring polyfill
+    //     semiLink.from = visiblePointsMap[link.from];
+    //     semiLink.to = visiblePointsMap[link.to];
+    //     return semiLink;
+    // })
+    //     // fourth, we filter out the inner-cluster links
+    //     .filter(function (link) {
+    //         return link.to !== link.from
+    //     })
+    // // console.log('semiLinks:', semiLinks);
+
+    // // fifth, create polylines
+    // var visibleLinks = getLines(semiLinks, visiblePointsMap, semiPoints);
+    // console.log('visibleLinks:', visibleLinks);
+
+
     // sixth, group the lines
     var linesLayer = new L.layerGroup(lines);
 
@@ -320,6 +390,7 @@ function drawLines(links, cluster) {
 }
 
 function getVisiblePointsMap (points) {
+
     // for every geoPoint (id as the key) we want to get the representing visible marker / cluster (id as the value)
     var visiblePointsMap = {};
 
@@ -329,12 +400,12 @@ function getVisiblePointsMap (points) {
         var element = points[llId];
 
         // if it's a marker (and not a cluster) - set it's id as the value and the geoPointId as the key
-        if ( !isNaN (element.geoPointId) /* id could be zero */ ) {
+        if (!isNaN(element.geoPointId) /* id could be zero */) {
             visiblePointsMap[element.geoPointId] = +llId;
         }
         // if it's a cluster - set it's id as the value for all it's geoPoints Ids (set them as keys)
         else {
-            element.getAllChildMarkers().forEach(function(marker) {
+            element.getAllChildMarkers().forEach(function (marker) {
                 visiblePointsMap[marker.geoPointId] = +llId;
             })
         }

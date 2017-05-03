@@ -16,6 +16,7 @@ function MinimapModule(map, credentials, atStart) {
 
     // when the main map moves, update the display
     this.UpdateMinimap = function () {
+        console.log('minimap');
         if (!module.Minimap) {
             return;
         }
