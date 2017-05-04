@@ -351,7 +351,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 12,
-            "to": 13
+            "to": 13,
+            "status": "OK"
         },
         {
             "id": 1,
@@ -361,7 +362,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 5,
-            "to": 1
+            "to": 1,
+            "status": "OK"
         },
         {
             "id": 2,
@@ -371,7 +373,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 18,
-            "to": 19
+            "to": 19,
+            "status": "OK"
         },
         {
             "id": 3,
@@ -381,7 +384,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 9,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 4,
@@ -391,7 +395,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 19,
-            "to": 0
+            "to": 0,
+            "status": "WARNING"
         },
         {
             "id": 5,
@@ -401,7 +406,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 12,
-            "to": 10
+            "to": 10,
+            "status": "OK"
         },
         {
             "id": 6,
@@ -411,7 +417,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 12,
-            "to": 2
+            "to": 2,
+            "status": "OK"
         },
         {
             "id": 7,
@@ -421,7 +428,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 15,
-            "to": 13
+            "to": 13,
+            "status": "OK"
         },
         {
             "id": 8,
@@ -431,7 +439,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 4,
-            "to": 12
+            "to": 12,
+            "status": "OK"
         },
         {
             "id": 9,
@@ -441,7 +450,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 8,
-            "to": 4
+            "to": 4,
+            "status": "OK"
         },
         {
             "id": 10,
@@ -451,7 +461,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 11,
-            "to": 7
+            "to": 7,
+            "status": "OK"
         },
         {
             "id": 11,
@@ -461,7 +472,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 6,
-            "to": 12
+            "to": 12,
+            "status": "OK"
         },
         {
             "id": 12,
@@ -471,7 +483,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 8,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 13,
@@ -481,7 +494,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 17,
-            "to": 15
+            "to": 15,
+            "status": "OK"
         },
         {
             "id": 14,
@@ -491,7 +505,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 5,
-            "to": 0
+            "to": 0,
+            "status": "OK"
         },
         {
             "id": 15,
@@ -501,7 +516,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 15,
-            "to": 9
+            "to": 9,
+            "status": "ERROR"
         },
         {
             "id": 16,
@@ -511,7 +527,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 4,
-            "to": 0
+            "to": 0,
+            "status": "OK"
         },
         {
             "id": 17,
@@ -521,7 +538,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 14,
-            "to": 0
+            "to": 0,
+            "status": "OK"
         },
         {
             "id": 18,
@@ -531,7 +549,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 10,
-            "to": 6
+            "to": 6,
+            "status": "OK"
         },
         {
             "id": 19,
@@ -541,7 +560,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 17,
-            "to": 2
+            "to": 2,
+            "status": "OK"
         },
         {
             "id": 20,
@@ -551,7 +571,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 3,
-            "to": 9
+            "to": 9,
+            "status": "OK"
         },
         {
             "id": 21,
@@ -561,7 +582,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 19,
-            "to": 5
+            "to": 5,
+            "status": "OK"
         },
         {
             "id": 22,
@@ -571,7 +593,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 12,
-            "to": 9
+            "to": 9,
+            "status": "OK"
         },
         {
             "id": 23,
@@ -581,7 +604,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 5,
-            "to": 11
+            "to": 11,
+            "status": "OK"
         },
         {
             "id": 24,
@@ -591,7 +615,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 17,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 25,
@@ -601,7 +626,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 13,
-            "to": 1
+            "to": 1,
+            "status": "OK"
         },
         {
             "id": 26,
@@ -611,7 +637,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 15,
-            "to": 5
+            "to": 5,
+            "status": "OK"
         },
         {
             "id": 27,
@@ -621,7 +648,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 12,
-            "to": 16
+            "to": 16,
+            "status": "OK"
         },
         {
             "id": 28,
@@ -631,7 +659,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 5,
-            "to": 11
+            "to": 11,
+            "status": "OK"
         },
         {
             "id": 29,
@@ -641,7 +670,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 6,
-            "to": 17
+            "to": 17,
+            "status": "OK"
         },
         {
             "id": 30,
@@ -651,7 +681,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 0,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 31,
@@ -661,7 +692,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 17,
-            "to": 12
+            "to": 12,
+            "status": "OK"
         },
         {
             "id": 32,
@@ -671,7 +703,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 10,
-            "to": 8
+            "to": 8,
+            "status": "OK"
         },
         {
             "id": 33,
@@ -681,7 +714,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 18,
-            "to": 1
+            "to": 1,
+            "status": "OK"
         },
         {
             "id": 34,
@@ -691,7 +725,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 5,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 35,
@@ -701,7 +736,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 4,
-            "to": 12
+            "to": 12,
+            "status": "OK"
         },
         {
             "id": 36,
@@ -711,7 +747,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 18,
-            "to": 9
+            "to": 9,
+            "status": "OK"
         },
         {
             "id": 37,
@@ -721,7 +758,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 16,
-            "to": 7
+            "to": 7,
+            "status": "OK"
         },
         {
             "id": 38,
@@ -731,7 +769,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 12,
-            "to": 19
+            "to": 19,
+            "status": "OK"
         },
         {
             "id": 39,
@@ -741,7 +780,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 15,
-            "to": 14
+            "to": 14,
+            "status": "OK"
         },
         {
             "id": 40,
@@ -751,7 +791,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 18,
-            "to": 4
+            "to": 4,
+            "status": "OK"
         },
         {
             "id": 41,
@@ -761,7 +802,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 4,
-            "to": 18
+            "to": 18,
+            "status": "OK"
         },
         {
             "id": 42,
@@ -771,7 +813,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 18,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 43,
@@ -781,7 +824,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 3,
-            "to": 18
+            "to": 18,
+            "status": "ERROR"
         },
         {
             "id": 44,
@@ -791,7 +835,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 18,
-            "to": 4
+            "to": 4,
+            "status": "WARNING"
         },
         {
             "id": 45,
@@ -801,7 +846,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 4,
-            "to": 18
+            "to": 18,
+            "status": "OK"
         },
         {
             "id": 46,
@@ -811,7 +857,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 18,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 47,
@@ -821,7 +868,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 17,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 48,
@@ -831,7 +879,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 17,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 49,
@@ -841,7 +890,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 17,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 50,
@@ -851,7 +901,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 17,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 51,
@@ -861,7 +912,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 17,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         },
         {
             "id": 52,
@@ -871,7 +923,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 16,
-            "to": 6
+            "to": 6,
+            "status": "OK"
         },
         {
             "id": 53,
@@ -881,7 +934,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 16,
-            "to": 6
+            "to": 6,
+            "status": "OK"
         },
         {
             "id": 54,
@@ -891,7 +945,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 16,
-            "to": 6
+            "to": 6,
+            "status": "OK"
         },
         {
             "id": 55,
@@ -901,7 +956,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 16,
-            "to": 6
+            "to": 6,
+            "status": "OK"
         },
         {
             "id": 56,
@@ -911,7 +967,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 11,
-            "to": 6
+            "to": 6,
+            "status": "OK"
         },
         {
             "id": 57,
@@ -921,7 +978,8 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 11,
-            "to": 6
+            "to": 6,
+            "status": "OK"
         },
         {
             "id": 58,
@@ -931,6 +989,7 @@ const myLinks =
             "marker": false,
             "connectionType": "connection",
             "from": 11,
-            "to": 3
+            "to": 3,
+            "status": "OK"
         }
     ];

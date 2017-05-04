@@ -85,15 +85,15 @@ function initMap() {
     // L.control.layers(extraLayers, overlayLayers, { collapsed: false }).addTo(map);
 
     // resize layers control to fit into view.
-    function resizeLayerControl() {
-        var layerControlHeight = document.body.clientHeight - (10 + 50);
-        var layerControl = document.getElementsByClassName('leaflet-control-layers-expanded')[0];
+    // function resizeLayerControl() {
+    //     var layerControlHeight = document.body.clientHeight - (10 + 50);
+    //     var layerControl = document.getElementsByClassName('leaflet-control-layers-expanded')[0];
 
-        layerControl.style.overflowY = 'auto';
-        layerControl.style.maxHeight = layerControlHeight + 'px';
-    }
-    map.on('resize', resizeLayerControl);
-    resizeLayerControl();
+    //     layerControl.style.overflowY = 'auto';
+    //     layerControl.style.maxHeight = layerControlHeight + 'px';
+    // }
+    // map.on('resize', resizeLayerControl);
+    // resizeLayerControl();
 
 }
 
@@ -143,31 +143,35 @@ function createIcons(geoPoints, cluster) {
 
 function getLines(visibleLinks, visiblePoints) {
 
-    var lineOptions1 = { color: '#52ab00', weight: 4, opacity: 0.4, smoothFactor: 10, lineJoin: 'round' }
-    var lineOptions2 = { color: '#52ab00', weight: 2, opacity: 0.4, smoothFactor: 10, lineJoin: 'round', dashArray: '1,5' }
-    
+    var lineStatus = '';  
     var lines = [];
     
         // fromto is a key
     for (var fromto in visibleLinks) {
         var line = visibleLinks[fromto];
 
+        lineStatus = 'status' + line.statusSeverityLevel;
+
         // getting coordinates
         var fromPoint = visiblePoints[line.from]._latlng;
         var toPoint = visiblePoints[line.to]._latlng;
 
         //creating the line between the points
-        if (line.type === 'semi') var linkLine = new L.polyline([fromPoint, toPoint], lineOptions2);
+        if (line.type === 'semi') var linkLine = new L.polyline([fromPoint, toPoint], 
+        { color: '#52ab00', weight: 3, opacity: 0.5, smoothFactor: 10, lineJoin: 'round', dashArray: '0.01,4', className: lineStatus }
+        );
         else {
-            var linkLine = new L.polyline([fromPoint, toPoint], lineOptions1);
+            var linkLine = new L.polyline([fromPoint, toPoint], 
+            { color: '#52ab00', weight: 3, opacity: 0.55, smoothFactor: 10, lineJoin: 'round', className: lineStatus }
+            );
             // show agg for real links only!!!
             linkLine.bindTooltip(
                 `<span onclick="console.log('hello ${line.innerLinks.length}')">${line.innerLinks.length}</span>`,
-                {permanent: true, interactive: true}
+                {permanent: true, interactive: true, className: lineStatus}
             );
             // console.log('line =', line)
             var popupHtml = '';
-            line.innerLinks.forEach(linkID => popupHtml += `<div>Line ${linkID}</div>`)
+            line.innerLinks.forEach(link => popupHtml += `<div>Line ${link.id}</div>`)
             linkLine.bindPopup(`${popupHtml}`);
         }
         
@@ -338,9 +342,26 @@ function drawLines(links, cluster) {
         newLink.fromto = '' + min + '-' + max;
         // console.log('newLink.fromto:', newLink.fromto);
 
+        switch (newLink.status) {
+            case 'OK':
+                newLink.statusSeverityLevel = '0';
+                break;
+            case 'WARNING':
+                newLink.statusSeverityLevel = '10';
+                break;
+            case 'ERROR':
+                newLink.statusSeverityLevel = '20';
+                break;
+            default:
+                newLink.statusSeverityLevel = '0';
+                break;
+        }
+
         var line = acc[newLink.fromto];
+        // console.log('link', newLink)
         if (!line) {
-            line = {type: null, from: newLink.from, to: newLink.to, innerLinks: [newLink.id]};
+            line = {type: null, from: newLink.from, to: newLink.to, status: newLink.status, statusSeverityLevel: newLink.statusSeverityLevel, innerLinks: [newLink]};
+            
             // visiblePoints is already a map object returned by leaflet!
             // given a leaflet_id (key) it returns an element (value).
             // if both to & from elements have a geoPointId
@@ -353,9 +374,13 @@ function drawLines(links, cluster) {
             acc[newLink.fromto] = line;
         }
         else {
-            // console.log('line:', line);
-            line.innerLinks.push(newLink.id);
-            // console.log('line.innerLinks:', line.innerLinks);
+            line.innerLinks.forEach(link => {
+                if(link.statusSeverityLevel > line.statusSeverityLevel) {
+                    line.status = link.status;
+                    line.statusSeverityLevel = link.statusSeverityLevel
+                }
+            })
+            line.innerLinks.push(newLink);
         }
  
         return acc;

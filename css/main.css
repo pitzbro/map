@@ -1,0 +1,127 @@
+@import url(../srcMiniMap/Control.MiniMap.css);
+/* Colors */
+/* Components */
+html,
+body {
+  height: 100%; }
+
+body {
+  margin: 0;
+  background: #7b7b7b;
+  overflow: hidden; }
+
+main {
+  display: flex;
+  flex-direction: column; }
+
+.map {
+  height: calc(100% - 47px);
+  width: 100%;
+  position: relative; }
+
+.leaflet-popup-content {
+  width: 256px !important; }
+
+.link-agg-el {
+  background: #52ab00;
+  width: auto !important;
+  height: auto !important;
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: #fff; }
+
+button {
+  background-color: orange; }
+
+.input-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10000; }
+
+.main-nav ul {
+  margin: 0;
+  padding: 20px 10px 0 10px;
+  border-bottom: solid 1px buttonface;
+  /*height: 30px;*/ }
+
+.main-nav li {
+  display: inline-block;
+  padding: 4px 0; }
+
+.main-nav li a {
+  color: #000;
+  text-decoration: none;
+  margin: 0 3px;
+  padding: 5px 15px;
+  border-radius: 10px 10px 0 0;
+  border: solid 1px buttonface;
+  border-bottom: none;
+  background: #fff; }
+
+.main-nav li a.active {
+  background: #eac27a;
+  border-color: #eac27a;
+  color: #fff;
+  cursor: default; }
+
+.main-nav li a:hover:not(.active) {
+  background: buttonface; }
+
+/*-----Tooltips-----*/
+.leaflet-tooltip-pane {
+  z-index: 550; }
+
+.leaflet-tooltip {
+  /*box-sizing: border-box;*/
+  border-radius: 5px;
+  border: 1px solid rgba(82, 171, 0, 0.55);
+  padding: 0;
+  box-shadow: none;
+  width: 20px;
+  height: 18px;
+  opacity: 1 !important;
+  /*text-align: center;*/ }
+  .leaflet-tooltip span {
+    display: block;
+    line-height: 20px;
+    width: 22px;
+    height: 20px;
+    text-align: center;
+    padding: 0;
+    background-color: #52ab00;
+    color: white;
+    position: relative;
+    border-radius: 5px;
+    right: 4px;
+    top: 2px; }
+  .leaflet-tooltip.leaflet-tooltip-right {
+    margin: 0;
+    right: -10px; }
+  .leaflet-tooltip.leaflet-tooltip-left {
+    margin: 0;
+    left: 10px; }
+  .leaflet-tooltip:before {
+    display: none; }
+  .leaflet-tooltip.status0 {
+    border-color: #43ab0e; }
+    .leaflet-tooltip.status0 span {
+      background-color: #43ab0e; }
+  .leaflet-tooltip.status10 {
+    border-color: #f9a11b; }
+    .leaflet-tooltip.status10 span {
+      background-color: #f9a11b; }
+  .leaflet-tooltip.status20 {
+    border-color: #ec2437; }
+    .leaflet-tooltip.status20 span {
+      background-color: #ec2437; }
+
+/*-------pathes------*/
+path.status0 {
+  stroke: #43ab0e; }
+
+path.status10 {
+  stroke: #f9a11b; }
+
+path.status20 {
+  stroke: #ec2437; }

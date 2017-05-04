@@ -1,0 +1,23 @@
+{
+  "name": "maps-demo",
+  "version": "1.0.0",
+  "description": "maps demo for audiocodes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node-sass sass/main.scss -o css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pitzbro/map.git"
+  },
+    "devDependencies": {
+    "node-sass": "^3.13.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pitzbro/map/issues"
+  },
+  "homepage": "https://github.com/pitzbro/map#readme"
+}
