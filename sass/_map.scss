@@ -1,0 +1,77 @@
+/*-----Tooltips-----*/
+
+.leaflet-tooltip-pane {
+    z-index: 550;
+}
+
+.leaflet-tooltip {
+    /*box-sizing: border-box;*/
+    border-radius: 5px;
+    border: 1px solid rgba(82, 171, 0, 0.55);
+    padding: 0;
+    box-shadow: none;
+    width: 20px;
+    height: 18px;
+    opacity: 1 !important;
+    /*text-align: center;*/
+
+    span {
+        display: block;
+        line-height: 20px;
+        width: 22px;
+        height: 20px;
+        text-align: center;
+        padding: 0;
+        background-color: #52ab00;
+        color: white;
+        position: relative;
+        border-radius: 5px;
+        right: 4px;
+        top: 2px;
+    }
+
+    &.leaflet-tooltip-right {
+        margin: 0;
+        right: -10px;
+    }
+
+    &.leaflet-tooltip-left {
+        margin: 0;
+        left: 10px;
+    }
+    &:before {
+        display: none;
+    }
+    &.status0 {
+        border-color: $default-color;
+        span {
+            background-color: $default-color;
+        }
+    }
+    &.status10 {
+        border-color: $warning-color;
+        span {
+            background-color: $warning-color;
+        }
+    }
+    &.status20 {
+        border-color: $error-color;
+        span {
+            background-color: $error-color;
+        }
+    } 
+}
+
+/*-------pathes------*/
+
+path {
+    &.status0 {
+        stroke: $default-color;
+    }
+    &.status10 {
+        stroke: $warning-color;;
+    }
+    &.status20 {
+        stroke: $error-color;;
+    }   
+}
