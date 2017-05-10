@@ -116,6 +116,28 @@ button {
     .leaflet-tooltip.status20 span {
       background-color: #ec2437; }
 
+/*------Aggregator links--------*/
+.agg-link {
+  line-height: 16px; }
+  .agg-link:before {
+    content: '';
+    display: inline-block;
+    width: 17px;
+    height: 16px;
+    margin-right: 8px; }
+  .agg-link.status0 {
+    color: #43ab0e; }
+    .agg-link.status0:before {
+      background-image: url("../assets/svg/links/sevirity-green.png"); }
+  .agg-link.status10 {
+    color: #f9a11b; }
+    .agg-link.status10:before {
+      background-image: url("../assets/svg/links/sevirity-orange.png"); }
+  .agg-link.status20 {
+    color: #ec2437; }
+    .agg-link.status20:before {
+      background-image: url("../assets/svg/links/sevirity-red.png"); }
+
 /*-------pathes------*/
 path.status0 {
   stroke: #43ab0e; }
@@ -125,3 +147,10 @@ path.status10 {
 
 path.status20 {
   stroke: #ec2437; }
+
+.myDivIcon circle.st0 {
+  fill: purple; }
+
+.myDivIcon svg {
+  width: 30px;
+  height: 30px; }

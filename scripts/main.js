@@ -87,15 +87,12 @@ function getPointsAndLinks() {
     // we are going to combine points and links so
     // that each point will "know" its connections
     var cluster = L.markerClusterGroup({ removeOutsideVisibleBounds: false, maxClusterRadius: 80 });
+
     // points data IRL will be fetched from server
-    // here we create a random array
-    var markersCount = document.getElementById('numPoints').value;
-    var currCenter = map.getCenter();
-    // var geoPoints = getRandomGeoPointsNear(currCenter, DISTANCE, markersCount);
     var geoPoints = myDevices;
-    // for each point, add an empty array of linked points ids
-    // (where link direction is A -> B, we will add B to A.linkedGeoPointIds)
-    // another important action is creating a map object of {id: point}
+
+    var currCenter = map.getCenter();
+
     var geoPointsMap = {};
 
     geoPoints.forEach(function (point) {
@@ -129,10 +126,42 @@ function createIcons(geoPoints, cluster) {
         }
     });
 
+    /*--testing SVG---*/
+    function readTextFile(file)
+    {
+        var rawFile = new XMLHttpRequest();
+        var string = null;
+        rawFile.open("GET", file, false);
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+            {
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    var allText = rawFile.responseText;
+                    // alert(allText);
+                    string = allText;
+                    // console.log(string);
+                }
+            }
+        }
+        rawFile.send(null);
+        return string;
+    }
+
+    var test = readTextFile("/assets/svg/devices/sbc.svg");
+
+    console.log(test);
+
+    var s = new XMLSerializer();
+    var d = '/assets/svg/devices/sbc.svg'
+
+    var divIcon = new L.divIcon({ className : 'myDivIcon', html: test });
+
     // icons
-    var iconSBC = new LeafIcon({ iconUrl: 'images/sbc.png' });
-    var iconGW = new LeafIcon({ iconUrl: 'images/gw.png' });
-    var iconUnknown = new LeafIcon({ iconUrl: 'images/unknown.png' });
+    var iconSBC = new LeafIcon({ iconUrl: '/assets/svg/devices/sbc.svg' });
+    var iconGW = new LeafIcon({ iconUrl: '/assets/svg/devices/gw.svg' });
+    var iconUnknown = new LeafIcon({ iconUrl: '/assets/svg/devices/unknown_blue.svg' });
 
     geoPoints.forEach(function (point) {
         var pointll = new L.LatLng(point.lat, point.lon, true);
@@ -150,15 +179,15 @@ function createIcons(geoPoints, cluster) {
             default:
                 icon = iconUnknown;
         }
-        var marker = new L.Marker(pointll, { icon: icon });
+        // var marker = new L.Marker(pointll, { icon: icon });
+        var marker = new L.Marker(pointll, { icon: divIcon });
         marker.bindPopup(`<img src="images/popupDevice.jpg"><div>Device ID ${point.id}</div>`);
         marker.geoPointId = point.id;
 
         cluster.addLayer(marker);
     });
-    map.addLayer(cluster);
-    console.log('cluster is ', cluster);
 
+    map.addLayer(cluster);
 }
 
 function getLines(visibleLinks, visiblePoints) {
@@ -177,23 +206,31 @@ function getLines(visibleLinks, visiblePoints) {
         var toPoint = visiblePoints[line.to]._latlng;
 
         //creating the line between the points
-        if (line.type === 'semi') var linkLine = new L.polyline([fromPoint, toPoint],
-            { color: '#52ab00', weight: 3, opacity: 0.5, smoothFactor: 10, lineJoin: 'round', dashArray: '0.01,4', className: lineStatus }
-        );
+        if (line.type === 'semi') {
+            var linkLine = new L.polyline([fromPoint, toPoint], { color: '#52ab00', weight: 3, opacity: 0.5, smoothFactor: 10, lineJoin: 'round', dashArray: '0.01,4', className: lineStatus });
+        }
         else {
             var linkLine = new L.polyline([fromPoint, toPoint],
                 { color: '#52ab00', weight: 3, opacity: 0.55, smoothFactor: 10, lineJoin: 'round', className: lineStatus }
             );
             // show agg for real links only!!!
             linkLine.bindTooltip(
-                `<span onclick="console.log('hello ${line.innerLinks.length}')">${line.innerLinks.length}</span>`,
+                `<span>${line.innerLinks.length}</span>`,
                 { permanent: true, interactive: true, className: lineStatus }
             );
-            // console.log('line =', line)
-            var popupHtml = '';
-            line.innerLinks.forEach(link => popupHtml += `<div>Line ${link.id}</div>`)
-            linkLine.bindPopup(`${popupHtml}`);
         }
+
+        // sorting inner links by status  severity
+        line.innerLinks.sort((a, b)=> {
+            return b.statusSeverityLevel - a.statusSeverityLevel; 
+        });
+
+        //adding the links popup
+        var popupHtml = '';
+        line.innerLinks.forEach(link => {
+            popupHtml += `<div class="agg-link status${link.statusSeverityLevel}">Line ${link.id}</div>`
+        })
+        linkLine.bindPopup(`${popupHtml}`);
 
         lines.push(linkLine);
     }
@@ -224,12 +261,11 @@ function drawLines(links, cluster) {
 
         // filtering out the inner-cluster links
         if (newLink.from === newLink.to) return acc;
-        // console.log('acc:', acc);
+
         var min = Math.min(newLink.from, newLink.to);
         var max = Math.max(newLink.from, newLink.to);
 
         newLink.fromto = '' + min + '-' + max;
-        // console.log('newLink.fromto:', newLink.fromto);
 
         switch (newLink.status) {
             case 'OK':
@@ -247,7 +283,7 @@ function drawLines(links, cluster) {
         }
 
         var line = acc[newLink.fromto];
-        // console.log('link', newLink)
+
         if (!line) {
             line = { type: null, from: newLink.from, to: newLink.to, status: newLink.status, statusSeverityLevel: newLink.statusSeverityLevel, innerLinks: [newLink] };
 
@@ -293,8 +329,6 @@ function getVisiblePointsMap(points) {
 
     // points IS AN OBJECT with leaflet ids as keys and DOM elements as values
     for (var llId in points) {
-        // debugger;
-        console.log("LLID :", llId);
 
         var element = points[llId];
 
