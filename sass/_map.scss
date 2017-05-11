@@ -62,6 +62,37 @@
     } 
 }
 
+/*------Aggregator links--------*/
+
+.agg-link {
+    line-height: 16px;
+    &:before {
+        content: '';
+        display: inline-block;
+        width: 17px;
+        height: 16px;
+        margin-right: 8px;
+    }
+    &.status0 {
+        color: $default-color;
+        &:before {
+            background-image: url('../assets/svg/links/sevirity-green.png');
+        }
+    }
+    &.status10 {
+        color: $warning-color;
+        &:before {
+            background-image: url('../assets/svg/links/sevirity-orange.png');
+        }
+    }
+    &.status20 {
+        color: $error-color;
+        &:before {
+            background-image: url('../assets/svg/links/sevirity-red.png');
+        }
+    }    
+}
+
 /*-------pathes------*/
 
 path {
@@ -69,9 +100,18 @@ path {
         stroke: $default-color;
     }
     &.status10 {
-        stroke: $warning-color;;
+        stroke: $warning-color;
     }
     &.status20 {
-        stroke: $error-color;;
+        stroke: $error-color;
     }   
+}
+
+.myDivIcon circle.st0 {
+    fill: purple;
+}
+
+.myDivIcon svg {
+    width: 30px;
+    height: 30px;
 }
