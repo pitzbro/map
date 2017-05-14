@@ -1,5 +1,5 @@
 var svgIcons = {
-    sbc :  `<?xml version="1.0" encoding="utf-8"?>
+    sbc: `<?xml version="1.0" encoding="utf-8"?>
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
@@ -21,7 +21,6 @@ var svgIcons = {
 
         <!--sbc locked -->
         <g class="sbc-locked">
-            <!--<circle class="st0" cx="27.5" cy="27.5" r="22"/>-->
             <g>
                 <polygon class="st1" points="12.9,28.8 12.9,34.5 17.6,34.5 23.4,28.8 		"/>
                 <polygon class="st1" points="27.3,34.5 27.3,40.3 38.9,28.8 29.9,28.8 24.1,34.5 		"/>
@@ -30,8 +29,8 @@ var svgIcons = {
             </g>
             <rect x="4.5" y="24.9" transform="matrix(0.7118 -0.7024 0.7024 0.7118 -10.9446 26.1927)" class="st1" width="43.9" height="3"/>
         </g>
-        </svg>` ,
-    site : `<?xml version="1.0" encoding="utf-8"?>
+        </svg>`,
+    site: `<?xml version="1.0" encoding="utf-8"?>
             <!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
@@ -77,8 +76,8 @@ var svgIcons = {
                         </g>
                     </g>
                 </g>
-            </svg>` ,
-    hgw  : `<?xml version="1.0" encoding="utf-8"?>
+            </svg>`,
+    hgw: `<?xml version="1.0" encoding="utf-8"?>
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
@@ -127,8 +126,8 @@ var svgIcons = {
                     <path class="st3" d="M29.1,29.5h5.7c0.3,0,0.3,0,0.3-0.3l0-4.1c0-0.4,0-0.4-0.3-0.7L34.5,24L29.1,29.5z"/>
             </g>
         </svg>
-        ` ,
-    gw : `<?xml version="1.0" encoding="utf-8"?>
+        `,
+    gw: `<?xml version="1.0" encoding="utf-8"?>
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
@@ -172,7 +171,7 @@ var svgIcons = {
             </g>
         </g>
         </svg>`,
-    ip : `<?xml version="1.0" encoding="utf-8"?>
+    ip: `<?xml version="1.0" encoding="utf-8"?>
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
@@ -200,8 +199,8 @@ var svgIcons = {
                 </g>
             </g>
         </g>
-        </svg>` ,
-    pbx : `<?xml version="1.0" encoding="utf-8"?>
+        </svg>`,
+    pbx: `<?xml version="1.0" encoding="utf-8"?>
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
             <style type="text/css">
@@ -236,8 +235,8 @@ var svgIcons = {
                 </g>
             </g>
             </svg>
-            ` ,
-    sip : ` <?xml version="1.0" encoding="utf-8"?>
+            `,
+    sip: ` <?xml version="1.0" encoding="utf-8"?>
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
@@ -261,8 +260,8 @@ var svgIcons = {
                 </g>
             </g>
         </g>
-        </svg> ` ,
-    pstn : `<?xml version="1.0" encoding="utf-8"?>
+        </svg> `,
+    pstn: `<?xml version="1.0" encoding="utf-8"?>
             <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
@@ -287,8 +286,8 @@ var svgIcons = {
                 </g>
             </g>
             </svg>
-            ` ,
-        unknown :  `<?xml version="1.0" encoding="utf-8"?>
+            `,
+    unknown: `<?xml version="1.0" encoding="utf-8"?>
                     <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
@@ -319,4 +318,114 @@ var svgIcons = {
                         </g>
                     </svg>
                     `
+}
+
+var svgActionsIcons = {
+    add: `<?xml version="1.0" encoding="utf-8"?>
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
+            <style type="text/css">
+                .st0{fill:#F4F5F5;}
+                // .st11{fill:#0CB6F5;}
+            </style>
+            <g>
+                <circle class="st0" cx="22.5" cy="22.5" r="22.5"/>
+                <g>
+                    <g>
+                        <path style="fill:#0CB6F5" class="st1" d="M25.2,19.9v-5.4c0-1.5-1.2-2.7-2.7-2.7c-1.5,0-2.7,1.2-2.7,2.7v5.4h-5.4c-1.5,0-2.7,1.2-2.7,2.7
+                            c0,1.5,1.2,2.7,2.7,2.7h5.4v5.4c0,1.5,1.2,2.7,2.7,2.7c1.5,0,2.7-1.2,2.7-2.7v-5.4h5.4c1.5,0,2.7-1.2,2.7-2.7
+                            c0-1.5-1.2-2.7-2.7-2.7H25.2z"/>
+                    </g>
+                </g>
+            </g>
+            </svg>`,
+    edit: ` <?xml version="1.0" encoding="utf-8"?>
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
+            <style type="text/css">
+                // .st3{fill:#0CB6F5;}
+                .st4{fill:#F4F5F5;}
+            </style>
+
+            <g>
+                <circle class="st4" cx="22.5" cy="22.5" r="22.5"/>
+                <g>
+                    <rect x="12.4" y="20.3" transform="matrix(0.6677 -0.7444 0.7444 0.6677 -10.326 23.4829)" style="fill:#0CB6F5" class="st3" width="17.5" height="6"/>
+                    <polyline style="fill:#0CB6F5" class="st3" points="11.4,34.1 16.7,32.7 12.3,28.7 11.4,34.1 		"/>
+                    <rect x="27.5" y="12" transform="matrix(0.6677 -0.7445 0.7445 0.6677 -1.6288 26.2848)" style="fill:#0CB6F5" class="st3" width="2.2" height="6"/>
+                </g>
+            </g>
+            </svg>`,
+    delete: `<?xml version="1.0" encoding="utf-8"?>
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
+                <style type="text/css">
+                    // .st3{fill:#0CB6F5;}
+                    .st5{fill:#F4F5F5;}
+                </style>
+                <g>
+                    <circle class="st5" cx="22.5" cy="22.5" r="22.5"/>
+                    <g>
+                        <g>
+                            <path style="fill:#0CB6F5" class="st3" d="M30.2,14.5h-3.1v-2c0-0.4-0.3-0.7-0.7-0.7c0,0-0.1,0-0.1,0c0,0,0,0-0.1,0h-7.2H19H19c-0.4,0-0.7,0.3-0.7,0.7
+                                v2h-3.1c-0.9,0-1.6,0.7-1.6,1.6v1.1v1.4H15v13.7c0,0.9,0.7,1.6,1.6,1.6h12.4c0.9,0,1.6-0.7,1.6-1.6V18.6h1.3v-1.4v-1.1
+                                C31.8,15.2,31.1,14.5,30.2,14.5z M19.7,13.2h6v1.3h-6V13.2z M29,32.3c0,0.1,0,0.1-0.1,0.1H16.5c-0.1,0-0.1,0-0.1-0.1V18.6H29
+                                V32.3z M30.4,17.2H15v-1.1c0-0.1,0-0.1,0.1-0.1h15.1c0.1,0,0.1,0.1,0.1,0.1V17.2L30.4,17.2z"/>
+                            <rect x="25.3" y="20.3" class="st3" width="1.4" height="10.9"/>
+                            <rect x="22" y="20.3" class="st3" width="1.4" height="10.9"/>
+                            <rect x="18.7" y="20.3" class="st3" width="1.4" height="10.9"/>
+                        </g>
+                    </g>
+                </g>
+                </svg>`,
+    unlocked: `<?xml version="1.0" encoding="utf-8"?>
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
+                <style type="text/css">
+                    // .st3{fill:#0CB6F5;}
+                    .st5{fill:#F4F5F5;}
+                </style>
+                <g>
+                    <circle class="st5" cx="22.5" cy="22.5" r="22.5"/>
+                    <g>
+                        <path style="fill:#0CB6F5" class="st3" d="M28.8,11.8c2.9,0,5.3,2.4,5.3,5.3c0,0.5-0.4,0.8-0.8,0.8c-0.5,0-0.8-0.4-0.8-0.8c0-2-1.7-3.7-3.7-3.7
+                            c-2,0-3.7,1.7-3.7,3.7v3.2h-1.6v-3.2C23.5,14.2,25.9,11.8,28.8,11.8z"/>
+                        <path class="st3" d="M26.4,20.3h-1.2v0h-1.6v0H13.3c-0.5,0-0.8,0.4-0.8,0.8V33c0,0.5,0.4,0.8,0.8,0.8h13.1c0.5,0,0.8-0.4,0.8-0.8
+                            V21.1C27.2,20.6,26.8,20.3,26.4,20.3z M21.3,29c0,0.8-0.7,1.5-1.5,1.5s-1.5-0.7-1.5-1.5v-3.3c0-0.8,0.7-1.5,1.5-1.5
+                            s1.5,0.7,1.5,1.5V29z"/>
+                    </g>
+                </g>
+                </svg>
+                `,
+    locked: `<?xml version="1.0" encoding="utf-8"?>
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
+                <style type="text/css">
+                    // .st3{fill:#0CB6F5;}
+                    .st4{fill:#F4F5F5;}
+                    .st6{fill:none;}
+                </style>
+                <g>
+                    <circle class="st4" cx="22.5" cy="22.5" r="22.5"/>
+                    <g>
+                        <g>
+                            <path class="st6" d="M19.1,27.2h-2c-0.2,0-0.4,0.2-0.4,0.4c0,0.2,0.2,0.4,0.4,0.4h2c0.2,0,0.4-0.2,0.4-0.4
+                                C19.5,27.3,19.3,27.2,19.1,27.2z"/>
+                            <path class="st6" d="M19.1,29.6h-2c-0.2,0-0.4,0.2-0.4,0.4c0,0.2,0.2,0.4,0.4,0.4h2c0.2,0,0.4-0.2,0.4-0.4
+                                C19.5,29.8,19.3,29.6,19.1,29.6z"/>
+                            <path class="st6" d="M19.1,24.7h-2c-0.2,0-0.4,0.2-0.4,0.4c0,0.2,0.2,0.4,0.4,0.4h2c0.2,0,0.4-0.2,0.4-0.4
+                                C19.5,24.9,19.3,24.7,19.1,24.7z"/>
+                            <g>
+                                <path style="fill:#0CB6F5" class="st3" d="M22.8,11.8c-2.9,0-5.3,2.4-5.3,5.3c0,0.4,0.4,0.8,0.8,0.8c0.4,0,0.8-0.4,0.8-0.8c0-2,1.6-3.7,3.7-3.7
+                                    c2,0,3.7,1.6,3.7,3.7v3.1h1.6v-3.1C28.1,14.2,25.7,11.8,22.8,11.8z"/>
+                                <path style="fill:#0CB6F5" class="st3" d="M22.8,11.8c2.9,0,5.3,2.4,5.3,5.3c0,0.4-0.4,0.8-0.8,0.8c-0.4,0-0.8-0.4-0.8-0.8c0-2-1.6-3.7-3.7-3.7
+                                    c-2,0-3.7,1.6-3.7,3.7v3.1h-1.6v-3.1C17.5,14.2,19.9,11.8,22.8,11.8z"/>
+                            </g>
+                        </g>
+                        <path style="fill:#0CB6F5" class="st3" d="M29.3,20.2h-1.2v0h-1.6v0H16.3c-0.4,0-0.8,0.4-0.8,0.8v11.8c0,0.4,0.4,0.8,0.8,0.8h13c0.4,0,0.8-0.4,0.8-0.8
+                            V21.1C30.1,20.6,29.8,20.2,29.3,20.2z M24.3,28.9c0,0.8-0.7,1.5-1.5,1.5s-1.5-0.7-1.5-1.5v-3.3c0-0.8,0.7-1.5,1.5-1.5
+                            s1.5,0.7,1.5,1.5V28.9z"/>
+                    </g>
+                </g>
+                </svg>`
 }

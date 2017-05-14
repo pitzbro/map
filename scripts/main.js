@@ -183,7 +183,27 @@ function createIcons(geoPoints, cluster) {
         // var marker = new L.Marker(pointll, { icon: icon });
         var divIcon = new L.divIcon({ className: `myDivIcon status${severityLevel}`, html: icon });
         var marker = new L.Marker(pointll, { icon: divIcon });
-        marker.bindPopup(`<img src="images/popupDevice.jpg"><div>Device ID ${point.id}</div>`);
+        // marker.bindPopup(`<img src="images/popupDevice.jpg"><div>Device ID ${point.id}</div>`);
+        console.log('point : ', point);
+        marker.bindPopup(`<div class="popup-marker">
+                            <ul style="list-style-type: none;>
+                                <li class="title"><b>${point.name}</b></li>
+                                <li><span class="key">IP address</span> : <span class="value">${point.id}</span></li>
+                                <li><span class="key">Device type</span> : <span class="value">${point.id}</li>
+                                <li><span class="key">Product type</span> : <span class="value">${point.productType}</li>
+                                <li><span class="key">Administrative state</span> : <span class="value">${point.adminState}</li>
+                                <li><span class="key">Operative state</span> : <span class="value">${point.operState}</li>
+                            </ul>
+                            <hr>
+                            <div class="icon-container">
+                             <div class="icon">${svgActionsIcons.add}</div>
+                             <div class="icon">${svgActionsIcons.delete}</div>
+                             <div class="icon">${svgActionsIcons.edit}</div>
+                             <div class="icon">${svgActionsIcons.locked}</div>
+                            </div>
+
+
+                         </div>`);
         marker.geoPointId = point.id;
         marker.statusSeverityLevel = severityLevel;
 

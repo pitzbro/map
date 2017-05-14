@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
+<style type="text/css">
+	.st3{fill:#0CB6F5;}
+	.st5{fill:#F4F5F5;}
+</style>
+<g>
+	<circle class="st5" cx="22.5" cy="22.5" r="22.5"/>
+	<g>
+		<g>
+			<path class="st3" d="M30.2,14.5h-3.1v-2c0-0.4-0.3-0.7-0.7-0.7c0,0-0.1,0-0.1,0c0,0,0,0-0.1,0h-7.2H19H19c-0.4,0-0.7,0.3-0.7,0.7
+				v2h-3.1c-0.9,0-1.6,0.7-1.6,1.6v1.1v1.4H15v13.7c0,0.9,0.7,1.6,1.6,1.6h12.4c0.9,0,1.6-0.7,1.6-1.6V18.6h1.3v-1.4v-1.1
+				C31.8,15.2,31.1,14.5,30.2,14.5z M19.7,13.2h6v1.3h-6V13.2z M29,32.3c0,0.1,0,0.1-0.1,0.1H16.5c-0.1,0-0.1,0-0.1-0.1V18.6H29
+				V32.3z M30.4,17.2H15v-1.1c0-0.1,0-0.1,0.1-0.1h15.1c0.1,0,0.1,0.1,0.1,0.1V17.2L30.4,17.2z"/>
+			<rect x="25.3" y="20.3" class="st3" width="1.4" height="10.9"/>
+			<rect x="22" y="20.3" class="st3" width="1.4" height="10.9"/>
+			<rect x="18.7" y="20.3" class="st3" width="1.4" height="10.9"/>
+		</g>
+	</g>
+</g>
+</svg>
