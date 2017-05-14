@@ -6,7 +6,6 @@ var map;
 var DISTANCE = 5000000;
 
 function initMap() {
-
     // start the map in USA
     var START_CENTER = { lat: 38.86316, lng: -95.673907 };
 
@@ -34,7 +33,7 @@ function initMap() {
     //Plugin magic goes here! Note that you cannot use the same layer object again, as that will confuse the two map controls
     var miniMap = new L.Control.MiniMap(miniMapBaseLayer).addTo(map);
 
-    map.on('baselayerchange', function (e) {
+    map.on('baselayerchange', function(e) {
         miniMap.changeLayer(miniMapBaseLayer);
     })
 
@@ -83,19 +82,70 @@ function initMap() {
     if (map) map.on('load', getPointsAndLinks());
 }
 
+
+//Default functionality
+// _defaultIconCreateFunction: function (cluster) {
+// 	var childCount = cluster.getChildCount();
+
+// 	var c = ' marker-cluster-';
+// 	if (childCount < 10) {
+// 		c += 'small';
+// 	} else if (childCount < 100) {
+// 		c += 'medium';
+// 	} else {
+// 		c += 'large';
+// 	}
+
+// 	return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+// },
+
+// function test(cluster) {
+//             var childCount = cluster.getChildCount();
+// 		    var c = ' marker-cluster-';
+//             if (childCount < 10) {
+//                 c += 'small';
+//             } else if (childCount < 100) {
+//                 c += 'medium'; 
+//             } else {
+//                 c += 'large';
+//             }
+//             return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
+// }
+
 function getPointsAndLinks() {
     // we are going to combine points and links so
     // that each point will "know" its connections
-    var cluster = L.markerClusterGroup({ removeOutsideVisibleBounds: false, maxClusterRadius: 80 });
+    var cluster = L.markerClusterGroup({
+        removeOutsideVisibleBounds: false,
+        maxClusterRadius: 80,
+        iconCreateFunction: function(cluster) {
+            var devices = cluster.getAllChildMarkers();
+            var childCount = cluster.getChildCount();
+            var maxSeverityLevels = getMaxSeverityLevel(devices);
+            var c = ' marker-cluster-';
 
-    // points data IRL will be fetched from server
+
+            if (childCount < 10) {
+                c += 'small';
+            } else if (childCount < 100) {
+                c += 'medium';
+            } else {
+                c += 'large';
+            }
+            return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: `marker-cluster status${maxSeverityLevels}`, iconSize: new L.Point(40, 40) });
+        }
+    });
+
+    // marker-cluster ${c} 
+
+    // points data IRL will be fetched from server 
     var geoPoints = myDevices;
 
     var currCenter = map.getCenter();
 
     var geoPointsMap = {};
 
-    geoPoints.forEach(function (point) {
+    geoPoints.forEach(function(point) {
         point.linkedGeoPointIds = [];
         geoPointsMap[point.id] = point;
     });
@@ -108,7 +158,7 @@ function getPointsAndLinks() {
 
     drawLines(geoLinks, cluster);
 
-    cluster.on('animationend', function () { drawLines(geoLinks, cluster) });
+    cluster.on('animationend', function() { drawLines(geoLinks, cluster) });
 
 }
 
@@ -121,73 +171,62 @@ function createIcons(geoPoints, cluster) {
             iconSize: [45, 45], // size of the icon
             shadowSize: [50, 50], // size of the shadow
             iconAnchor: [22.5, 22.5], // point of the icon which will correspond to marker's location
-            shadowAnchor: [23, 30],  // the same for the shadow
+            shadowAnchor: [23, 30], // the same for the shadow
             popupAnchor: [-7, -56] // point from which the popup should open relative to the iconAnchor
         }
     });
 
-    /*--testing SVG---*/
-    function readTextFile(file)
-    {
-        var rawFile = new XMLHttpRequest();
-        var string = null;
-        rawFile.open("GET", file, false);
-        rawFile.onreadystatechange = function ()
-        {
-            if(rawFile.readyState === 4)
-            {
-                if(rawFile.status === 200 || rawFile.status == 0)
-                {
-                    var allText = rawFile.responseText;
-                    // alert(allText);
-                    string = allText;
-                    // console.log(string);
-                }
-            }
-        }
-        rawFile.send(null);
-        return string;
-    }
-
-    var test = readTextFile("/assets/svg/devices/sbc.svg");
-
-    console.log(test);
-
-    var s = new XMLSerializer();
-    var d = '/assets/svg/devices/sbc.svg'
-
-    var divIcon = new L.divIcon({ className : 'myDivIcon', html: test });
-
-    // icons
-    var iconSBC = new LeafIcon({ iconUrl: '/assets/svg/devices/sbc.svg' });
-    var iconGW = new LeafIcon({ iconUrl: '/assets/svg/devices/gw.svg' });
-    var iconUnknown = new LeafIcon({ iconUrl: '/assets/svg/devices/unknown_blue.svg' });
-
-    geoPoints.forEach(function (point) {
+    geoPoints.forEach(function(point) {
         var pointll = new L.LatLng(point.lat, point.lon, true);
-        var icon = null;
-        switch (point.productType) {
-            case 'SBC':
-                icon = iconSBC;
-                break;
-            case 'GW':
-                icon = iconGW;
-                break;
-            case 'UNKNOWN':
-                icon = iconUnknown;
-                break;
-            default:
-                icon = iconUnknown;
-        }
+        var icon = getIcon(point.productType);
+        var severityLevel = getstatusSeverityLevel(point.status);
         // var marker = new L.Marker(pointll, { icon: icon });
+        var divIcon = new L.divIcon({ className: `myDivIcon status${severityLevel}`, html: icon });
         var marker = new L.Marker(pointll, { icon: divIcon });
         marker.bindPopup(`<img src="images/popupDevice.jpg"><div>Device ID ${point.id}</div>`);
         marker.geoPointId = point.id;
+        marker.statusSeverityLevel = severityLevel;
 
         cluster.addLayer(marker);
     });
-
     map.addLayer(cluster);
+}
+
+function getstatusSeverityLevel(state) {
+    let number;
+    switch (state) {
+        case 'OK':
+            number = 0;
+            break;
+        case 'WARNING':
+            number = 10;
+            break;
+        case 'ERROR':
+            number = 20;
+            break;
+        default:
+            number = 0;
+    }
+    return number;
+
+}
+
+function getIcon(productType) {
+    let icon;
+    switch (productType) {
+        case 'SBC':
+            icon = svgIcons.sbc;
+            break;
+        case 'GW':
+            icon = svgIcons.gw;
+            break;
+        case 'UNKNOWN':
+            icon = svgIcons.unknown;
+            break;
+        default:
+            icon = svgIcons.unknown;
+    }
+    return icon;
 }
 
 function getLines(visibleLinks, visiblePoints) {
@@ -208,21 +247,17 @@ function getLines(visibleLinks, visiblePoints) {
         //creating the line between the points
         if (line.type === 'semi') {
             var linkLine = new L.polyline([fromPoint, toPoint], { color: '#52ab00', weight: 3, opacity: 0.5, smoothFactor: 10, lineJoin: 'round', dashArray: '0.01,4', className: lineStatus });
-        }
-        else {
-            var linkLine = new L.polyline([fromPoint, toPoint],
-                { color: '#52ab00', weight: 3, opacity: 0.55, smoothFactor: 10, lineJoin: 'round', className: lineStatus }
-            );
+        } else {
+            var linkLine = new L.polyline([fromPoint, toPoint], { color: '#52ab00', weight: 3, opacity: 0.55, smoothFactor: 10, lineJoin: 'round', className: lineStatus });
             // show agg for real links only!!!
             linkLine.bindTooltip(
-                `<span>${line.innerLinks.length}</span>`,
-                { permanent: true, interactive: true, className: lineStatus }
+                `<span>${line.innerLinks.length}</span>`, { permanent: true, interactive: true, className: lineStatus }
             );
         }
 
         // sorting inner links by status  severity
-        line.innerLinks.sort((a, b)=> {
-            return b.statusSeverityLevel - a.statusSeverityLevel; 
+        line.innerLinks.sort((a, b) => {
+            return b.statusSeverityLevel - a.statusSeverityLevel;
         });
 
         //adding the links popup
@@ -252,7 +287,7 @@ function drawLines(links, cluster) {
     // fourth, make a copy of the links but replace the 'from' and 'to':
     // instead of geoPointId we save the element`s _leaflet_id, so
     // the latlngs will be drawn from the elements` position on the map
-    var visibleLinks = links.reduce(function (acc, link) {
+    var visibleLinks = links.reduce(function(acc, link) {
 
         var newLink = Object.assign({}, link); // TODO: replace es6 or bring polyfill
 
@@ -294,11 +329,9 @@ function drawLines(links, cluster) {
             if (isNaN(visiblePoints[line.from].geoPointId) ||
                 isNaN(visiblePoints[line.to].geoPointId)) {
                 line.type = 'semi';
-            }
-            else line.type = 'real';
+            } else line.type = 'real';
             acc[newLink.fromto] = line;
-        }
-        else {
+        } else {
             line.innerLinks.forEach(link => {
                 if (link.statusSeverityLevel > line.statusSeverityLevel) {
                     line.status = link.status;
@@ -322,6 +355,15 @@ function drawLines(links, cluster) {
     linesLayer.addTo(cluster);
 }
 
+function getMaxSeverityLevel(arr) {
+    var maxSever;
+    arr.forEach((item, index) => {
+        if (index === 0) maxSever = item.statusSeverityLevel;
+        if (item.statusSeverityLevel > maxSever) maxSever = item.statusSeverityLevel;
+    })
+    return maxSever;
+}
+
 function getVisiblePointsMap(points) {
 
     // for every geoPoint (id as the key) we want to get the representing visible marker / cluster (id as the value)
@@ -333,12 +375,12 @@ function getVisiblePointsMap(points) {
         var element = points[llId];
 
         // if it's a marker (and not a cluster) - set it's id as the value and the geoPointId as the key
-        if (!isNaN(element.geoPointId) /* id could be zero */) {
+        if (!isNaN(element.geoPointId) /* id could be zero */ ) {
             visiblePointsMap[element.geoPointId] = +llId;
         }
         // if it's a cluster - set it's id as the value for all it's geoPoints Ids (set them as keys)
         else {
-            element.getAllChildMarkers().forEach(function (marker) {
+            element.getAllChildMarkers().forEach(function(marker) {
                 visiblePointsMap[marker.geoPointId] = +llId;
             })
         }

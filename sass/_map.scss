@@ -14,7 +14,6 @@
     height: 18px;
     opacity: 1 !important;
     /*text-align: center;*/
-
     span {
         display: block;
         line-height: 20px;
@@ -29,12 +28,10 @@
         right: 4px;
         top: 2px;
     }
-
     &.leaflet-tooltip-right {
         margin: 0;
         right: -10px;
     }
-
     &.leaflet-tooltip-left {
         margin: 0;
         left: 10px;
@@ -59,8 +56,9 @@
         span {
             background-color: $error-color;
         }
-    } 
+    }
 }
+
 
 /*------Aggregator links--------*/
 
@@ -90,8 +88,9 @@
         &:before {
             background-image: url('../assets/svg/links/sevirity-red.png');
         }
-    }    
+    }
 }
+
 
 /*-------pathes------*/
 
@@ -104,14 +103,91 @@ path {
     }
     &.status20 {
         stroke: $error-color;
-    }   
+    }
 }
 
-.myDivIcon circle.st0 {
-    fill: purple;
+
+/*-------Devices------*/
+
+.myDivIcon  {
+    &.status0 circle {
+        fill: $default-color;
+    }
+    &.status10 circle {
+        fill: $warning-color;
+    }
+    &.status20 circle {
+        fill: $error-color;
+    }
 }
 
 .myDivIcon svg {
-    width: 30px;
-    height: 30px;
+    position: relative;
+    top: -100%;
+    left: -100%;
+    width: 40px;
+    height: 40px;
 }
+
+.myDivIcon .lines {
+    display: none;
+}
+
+ 
+/*-------Devices------*/
+
+.leaflet-marker-icon {
+    &.status0 {
+        background-color: $default-color;
+    }    
+    &.status10 {
+        background-color: rgba(181, 112, 6, 0.29);
+    }    
+    &.status20 {
+        background-color: rgba(237, 0, 23, 0.37);
+    }
+}
+.leaflet-marker-icon {
+    &.status0 div {
+        background-color: rgba(35, 199, 35, 0.65);
+    }    
+    &.status10 div { 
+        background-color: rgba(255, 160, 16, 0.57);
+    }    
+    &.status20 div {
+        background-color: rgba(199, 13, 27, 0.6);
+    }    
+} 
+.marker-cluster span {
+    line-height: 30px;
+    color: white;
+} 
+// .marker-cluster-small {
+// 	background-color: rgba(181, 226, 140, 0.6);
+// 	}
+// .marker-cluster-small div {
+// 	background-color: rgba(110, 204, 57, 0.6);
+// 	}
+
+// .marker-cluster-medium {
+// 	background-color: rgba(241, 211, 87, 0.6);
+// 	}
+// .marker-cluster-medium div {
+// 	background-color: rgba(240, 194, 12, 0.6);
+// 	}
+
+// .marker-cluster-large {
+// 	background-color: rgba(253, 156, 115, 0.6);
+// 	}
+// .marker-cluster-large div {
+// 	background-color: rgba(241, 128, 23, 0.6);
+// 	}
+// .marker-cluster-0 {
+     
+// }  
+// .marker-cluster-10 {
+
+// }  
+// .marker-cluster-20 {
+
+// }  
