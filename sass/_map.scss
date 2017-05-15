@@ -170,13 +170,13 @@ path {
 
 .leaflet-marker-icon {
     &.status0 div {
-        background-color: transparentize($default-color, 0.6);
+        background-color: transparentize($default-color, 0.2);
     }
     &.status10 div {
-        background-color: transparentize($warning-color, 0.6);
+        background-color: transparentize($warning-color, 0.2);
     }
     &.status20 div {
-        background-color: transparentize($error-color, 0.6);
+        background-color: transparentize($error-color, 0.2);
     }
 }
 

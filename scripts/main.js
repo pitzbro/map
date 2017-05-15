@@ -26,8 +26,8 @@ function initMap() {
     var osm = new L.TileLayer(osmUrl, { minZoom: 3, maxZoom: 19, attribution: osmAttrib });
 
     map.setView(new L.LatLng(START_CENTER.lat, START_CENTER.lng), 4);
-    // map.addLayer(osm);
-    map.addLayer(baseLayer);
+    map.addLayer(osm);
+    // map.addLayer(baseLayer);
     // L.control.layers(baseLayer).addTo(map);
 
     //Plugin magic goes here! Note that you cannot use the same layer object again, as that will confuse the two map controls

@@ -202,13 +202,13 @@ path.status20 {
   background-color: rgba(236, 36, 55, 0.4); }
 
 .leaflet-marker-icon.status0 div {
-  background-color: rgba(67, 171, 14, 0.4); }
+  background-color: rgba(67, 171, 14, 0.8); }
 
 .leaflet-marker-icon.status10 div {
-  background-color: rgba(249, 161, 27, 0.4); }
+  background-color: rgba(249, 161, 27, 0.8); }
 
 .leaflet-marker-icon.status20 div {
-  background-color: rgba(236, 36, 55, 0.4); }
+  background-color: rgba(236, 36, 55, 0.8); }
 
 .marker-cluster span {
   line-height: 30px;
