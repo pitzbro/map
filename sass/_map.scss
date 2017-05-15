@@ -109,15 +109,35 @@ path {
 
 /*-------Devices------*/
 
-.myDivIcon  {
-    &.status0 circle {
-        fill: $default-color;
+.myDivIcon {
+    svg {
+        border-radius: 50%;
+        box-sizing: border-box;
+        transition: box-shadow 0.3s;
     }
-    &.status10 circle {
-        fill: $warning-color;
+    &.status0 svg {
+        &:hover {
+            box-shadow: inset 0 0 0px 3px transparentize($default-color, 0.4);
+        }
+        circle {
+            fill: $default-color;
+        }
     }
-    &.status20 circle {
-        fill: $error-color;
+    &.status10 svg {
+        &:hover {
+            box-shadow: inset 0 0 0px 3px transparentize($warning-color, 0.4);
+        }
+        circle {
+            fill: $warning-color;
+        }
+    }
+    &.status20 svg {
+        &:hover {
+            box-shadow: inset 0 0 0px 3px transparentize($error-color, 0.4);
+        }
+        circle {
+            fill: $error-color;
+        }
     }
 }
 
@@ -133,61 +153,74 @@ path {
     display: none;
 }
 
- 
+
 /*-------Devices------*/
 
 .leaflet-marker-icon {
     &.status0 {
-        background-color: $default-color;
-    }    
+        background-color: transparentize($default-color, 0.6);
+    }
     &.status10 {
-        background-color: rgba(181, 112, 6, 0.29);
-    }    
+        background-color: transparentize($warning-color, 0.6);
+    }
     &.status20 {
-        background-color: rgba(237, 0, 23, 0.37);
+        background-color: transparentize($error-color, 0.6);
     }
 }
+
 .leaflet-marker-icon {
     &.status0 div {
-        background-color: rgba(35, 199, 35, 0.65);
-    }    
-    &.status10 div { 
-        background-color: rgba(255, 160, 16, 0.57);
-    }    
+        background-color: transparentize($default-color, 0.2);
+    }
+    &.status10 div {
+        background-color: transparentize($warning-color, 0.2);
+    }
     &.status20 div {
-        background-color: rgba(199, 13, 27, 0.6);
-    }    
-} 
+        background-color: transparentize($error-color, 0.2);
+    }
+}
+
 .marker-cluster span {
     line-height: 30px;
     color: white;
-} 
-// .marker-cluster-small {
-// 	background-color: rgba(181, 226, 140, 0.6);
-// 	}
-// .marker-cluster-small div {
-// 	background-color: rgba(110, 204, 57, 0.6);
-// 	}
+}
 
-// .marker-cluster-medium {
-// 	background-color: rgba(241, 211, 87, 0.6);
-// 	}
-// .marker-cluster-medium div {
-// 	background-color: rgba(240, 194, 12, 0.6);
-// 	}
+.popup-marker {
+    .key {}
+    .value {
+        font-weight: bold;
+    }
+    .icon-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    .icon {
+        width: 16%;
+        &:hover {
+            cursor: pointer;
+            circle {
+                fill: #E0F3FA;
+            }
+        }
+    }
+}
 
-// .marker-cluster-large {
-// 	background-color: rgba(253, 156, 115, 0.6);
-// 	}
-// .marker-cluster-large div {
-// 	background-color: rgba(241, 128, 23, 0.6);
-// 	}
-// .marker-cluster-0 {
-     
-// }  
-// .marker-cluster-10 {
+.leaflet-container {
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 12px;
+    line-height: 1.5;
+    font-family: 'Open Sans', sans-serif;
+}
 
-// }  
-// .marker-cluster-20 {
-
-// }  
+// polygon:focus {
+//     fill: #FFFFFF;
+//     outline: 0;
+// }
+:focus {
+    outline: 0;
+}
