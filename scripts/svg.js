@@ -3,16 +3,10 @@ var svgIcons = {
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-        <style type="text/css">
-            .st1{fill:#FFFFFF;}
-            .circle{fill:#34B3E7;}
-            .sbc-normal{display:inline;}
-            .sbc-locked{display:none;}
-        </style>
 
             <circle class="circle" cx="27.5" cy="27.5" r="22"/>
         <!-- sbc normal -->
-            <g class="sbc-normal">
+            <g class="normal sbc-normal">
                 <g>
                     <polygon class="st1" points="36.6,28.5 26,28.5 15.5,28.5 15.5,34.2 26,34.2 26,40 		"/>
                     <polygon class="st1" points="39.5,20.8 29,20.8 29,15 18.4,26.5 29,26.5 39.5,26.5 		"/>
@@ -20,7 +14,7 @@ var svgIcons = {
             </g>
 
         <!--sbc locked -->
-        <g class="sbc-locked">
+        <g class="locked sbc-locked">
             <g>
                 <polygon class="st1" points="12.9,28.8 12.9,34.5 17.6,34.5 23.4,28.8 		"/>
                 <polygon class="st1" points="27.3,34.5 27.3,40.3 38.9,28.8 29.9,28.8 24.1,34.5 		"/>
@@ -34,19 +28,13 @@ var svgIcons = {
             <!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-            <style type="text/css">
-                .st3{fill:#FFFFFF;}
-                .circle{fill:#34B1E6;}
-                .site-normal{display:inline;}
-                .site-locked{display:none;}
-            </style>
 
                 <g>
                     <circle class="circle" cx="27.3" cy="27.5" r="22"/>
                 </g>
 
                 <!--site normal-->
-                <g class="site-normal">
+                <g class="normal site-normal">
                     <g>
                         <path class="st3" d="M25.6,19.9c0,0,2.6-4.6,2.6-4.6c0.2-0.4,0.7-0.5,1.1-0.3c0,0,2.2,1.2,2.2,1.2l-3.3,6l-2.2-1.2
                             C25.6,20.7,25.4,20.3,25.6,19.9z M17.4,36.2c-0.4-0.2-0.5-0.7-0.3-1c0,0,2.7-4.8,2.7-4.8c0.2-0.4,0.6-0.5,1-0.3
@@ -57,7 +45,7 @@ var svgIcons = {
                 </g>
 
                 <!--site locked-->
-                <g class="site-locked">
+                <g class="locked site-locked">
                     <g>
                         <g>
                             <rect x="5.3" y="25.9" transform="matrix(0.7118 -0.7024 0.7024 0.7118 -11.4114 27.0549)" class="st3" width="43.9" height="3"/>
@@ -81,18 +69,12 @@ var svgIcons = {
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-        <style type="text/css">
-            .st3{fill:#FFFFFF;}
-            .circle{fill:#34B3E7;}
-            .hgw-normal{display : inline;}
-            .hgw-locked{display : none;}
-        </style>
 
                 <g>
                     <circle class="circle" cx="27.5" cy="27.5" r="22"/>
                 </g>
                 <!--hgw-normal-->
-                <g class="hgw-normal">
+                <g class="normal hgw-normal">
                     <g>
                         <path class="st3" d="M21.4,29.1h14.5c0.3,0,0.3,0,0.3-0.3l0-4.1c0-0.4,0-0.4-0.3-0.7l-2.3-2.2c-3.1-3-6.9-2.9-9.9,0L21.3,24
                             C21,24.3,21,24.3,21,24.7l0,4.1C21,29.1,21,29.1,21.4,29.1z M28.6,27.9c-2,0-3.5-1.4-3.5-3.3c0-1.9,1.5-3.3,3.5-3.3
@@ -108,7 +90,7 @@ var svgIcons = {
                     </g>
                 </g>
                 <!--hgw-locked-->
-                <g class="hgw-locked">
+                <g class="locked hgw-locked">
                     <g>
                         <rect x="4.5" y="24.9" transform="matrix(0.7118 -0.7024 0.7024 0.7118 -10.9446 26.1927)" class="st3" width="43.9" height="3"/>
                     </g>
@@ -131,19 +113,13 @@ var svgIcons = {
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-        <style type="text/css">
-            .st3{fill:#FFFFFF;}
-            .circle{fill:#34B3E7;}
-            .gw-normal{display:inline;}
-            .gw-locked{display:none;}
-        </style>
 
         <g>
             <g>
                 <circle class="circle" cx="27.5" cy="27.5" r="22"/>
             </g>
             <!--gw noraml-->
-            <g class="gw-normal">
+            <g class="normal gw-normal">
                 <g>
                     <polygon class="st3" points="40.5,30.9 30,30.9 19.4,30.9 19.4,35.9 30,35.9 30,41 			"/>
                 </g>
@@ -154,7 +130,7 @@ var svgIcons = {
                     l1.6-2.1c-4.1-4.5-13.5-4.5-17.6,0L20.1,21.5z"/>
             </g>
             <!--gw locked-->
-            <g class="gw-locked">
+            <g class="locked gw-locked">
                 <rect x="4.5" y="24.9" transform="matrix(0.7118 -0.7024 0.7024 0.7118 -10.9446 26.1927)" class="st3" width="43.9" height="3"/>
                 <g>
                     <path class="st6" d="M26.7,22.2c-1.9,0-3.3,1.4-3.3,3.3c0,1,0.4,1.8,1,2.4l0.4-0.4l0.7-0.7c-0.4-0.3-0.6-0.8-0.6-1.4
@@ -175,11 +151,7 @@ var svgIcons = {
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-        <style type="text/css">
-            .st3{fill:#FFFFFF;}
-            .circle{fill:#525352;}
-            .ip{}
-        </style>
+
         <g>
             <g>
                 <g>
@@ -203,11 +175,7 @@ var svgIcons = {
     pbx: `<?xml version="1.0" encoding="utf-8"?>
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-            <style type="text/css">
-                .st3{fill:#FFFFFF;}
-                .circle{fill:#525352;}
-                .pbx{}
-            </style>
+
             <g xmlns="http://www.w3.org/2000/svg">
                 <g>
                     <circle class="circle" cx="27.5" cy="27.5" r="22"/>
@@ -240,11 +208,7 @@ var svgIcons = {
         <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-        <style type="text/css">
-            .st3{fill:#FFFFFF;}
-            .circle{fill:#525352;}
-            .sip{}
-        </style>
+
         <g class="sip">
             <g>
                 <g>
@@ -265,12 +229,7 @@ var svgIcons = {
             <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-            <style type="text/css">
-                .st3{fill:#FFFFFF;}
-                .st6{fill:none;}
-                .circle{fill:#525352;}
-                .pstn{}
-            </style>
+
             <g class="pstn">
                 <g>
                     <g>
@@ -291,22 +250,17 @@ var svgIcons = {
                     <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-                    <style type="text/css">
-                        .circle{fill:#33B2E7;}
-                        .st3{fill:#FFFFFF;}
-                        .unknown-normal{display : inline;}
-                        .unknown-locked{display : none;}
-                    </style>
+
                     <g>
                             <g>
                                 <circle class="circle" cx="27.5" cy="27.5" r="22"/>
                             </g>
                             <!--normal-->
-                            <g class="unknown-normal">
+                            <g class="normal unknown-normal">
                                 <path class="st3" d="M34.9,21.7c0,2-1,3.8-3.2,5.5c-1.3,1-2,1.7-2.2,1.9c-0.8,0.9-1.2,2-1.1,3.2l0,0.2l-3.1,0.1l0-0.4     c-0.1-2.8,1.1-5,3.3-6.7c1.5-1.1,2.2-2.2,2.1-3.5c0-2.1-1.3-3.1-3.6-3c-2.4,0.1-3.6,1.3-3.5,3.7l-3.7,0.1c0-2,0.6-3.6,1.9-4.7     c1.3-1.1,3.2-1.6,5.5-1.7c2.1,0,3.9,0.4,5.3,1.4C34.1,18.7,34.9,20.1,34.9,21.7z M28.9,38.6l-3.6,0.1l-0.1-3.4l3.6-0.1L28.9,38.6     z"/>
                             </g>
                             <!--locked-->
-                        <g class="unknown-locked">
+                        <g class="locked unknown-locked">
                             <rect x="5.4" y="26" transform="matrix(0.7118 -0.7024 0.7024 0.7118 -11.4264 27.1518)" class="st3" width="43.9" height="3"/>
                             <g>
                                 <path class="st3" d="M28.6,25.5c-0.9,0.7-1.6,1.4-2.2,2.3l2.8-2.8C29,25.2,28.8,25.3,28.6,25.5z"/>
@@ -324,10 +278,7 @@ var svgActionsIcons = {
     add: `<?xml version="1.0" encoding="utf-8"?>
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
-            <style type="text/css">
-                .st0{fill:#F4F5F5;}
-                // .st11{fill:#0CB6F5;}
-            </style>
+
             <g>
                 <circle class="st0" cx="22.5" cy="22.5" r="22.5"/>
                 <g>
@@ -342,10 +293,6 @@ var svgActionsIcons = {
     edit: ` <?xml version="1.0" encoding="utf-8"?>
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
-            <style type="text/css">
-                // .st3{fill:#0CB6F5;}
-                .st4{fill:#F4F5F5;}
-            </style>
 
             <g>
                 <circle class="st4" cx="22.5" cy="22.5" r="22.5"/>
@@ -359,10 +306,7 @@ var svgActionsIcons = {
     delete: `<?xml version="1.0" encoding="utf-8"?>
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
-                <style type="text/css">
-                    // .st3{fill:#0CB6F5;}
-                    .st5{fill:#F4F5F5;}
-                </style>
+
                 <g>
                     <circle class="st5" cx="22.5" cy="22.5" r="22.5"/>
                     <g>
@@ -381,10 +325,7 @@ var svgActionsIcons = {
     unlocked: `<?xml version="1.0" encoding="utf-8"?>
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
-                <style type="text/css">
-                    // .st3{fill:#0CB6F5;}
-                    .st5{fill:#F4F5F5;}
-                </style>
+
                 <g>
                     <circle class="st5" cx="22.5" cy="22.5" r="22.5"/>
                     <g>
@@ -400,11 +341,7 @@ var svgActionsIcons = {
     locked: `<?xml version="1.0" encoding="utf-8"?>
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 45 45" style="enable-background:new 0 0 45 45;" xml:space="preserve">
-                <style type="text/css">
-                    // .st3{fill:#0CB6F5;}
-                    .st4{fill:#F4F5F5;}
-                    .st6{fill:none;}
-                </style>
+
                 <g>
                     <circle class="st4" cx="22.5" cy="22.5" r="22.5"/>
                     <g>

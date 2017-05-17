@@ -15,25 +15,6 @@ main {
     flex-direction: column;
 }
 
-.map {
-    height: calc(100% - 47px);
-    width: 100%;
-    position: relative;
-}
-
-.leaflet-popup-content {
-    width: 256px !important;
-}
-
-.link-agg-el {
-    background: #52ab00;
-    width: auto !important;
-    height: auto !important;
-    padding: 2px 8px;
-    border-radius: 3px;
-    color: #fff;
-}
-
 button {
     background-color: orange;
 }

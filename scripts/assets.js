@@ -8,7 +8,7 @@ const myDevices =
             "filtered": true,
             "marker": true,
             "productType": "SBC",
-            "adminState": "UNLOCKED",
+            "adminState": "LOCKED",
             "operState": "AVAILABLE",
             "status" : "OK" ,
             "linkedGeoPointIds": [
@@ -60,7 +60,7 @@ const myDevices =
             "filtered": true,
             "marker": true,
             "productType": "SBC",
-            "adminState": "UNLOCKED",
+            "adminState": "LOCKED",
             "operState": "AVAILABLE",
             "status" : "WARNING" ,
             "linkedGeoPointIds": [
@@ -100,7 +100,7 @@ const myDevices =
             "productType": "GW",
             "adminState": "UNLOCKED",
             "operState": "AVAILABLE",
-            "status" : "WARNING" ,
+            "status" : "OK" ,
             "linkedGeoPointIds": [
                 1,
                 0,
@@ -136,7 +136,7 @@ const myDevices =
             "filtered": true,
             "marker": true,
             "productType": "SBC",
-            "adminState": "UNLOCKED",
+            "adminState": "LOCKED",
             "operState": "AVAILABLE",
             "status" : "OK",
             "linkedGeoPointIds": [
@@ -154,7 +154,7 @@ const myDevices =
             "productType": "SBC",
             "adminState": "UNLOCKED",
             "operState": "AVAILABLE",
-            "status" : "ERROR",
+            "status" : "OK",
             "linkedGeoPointIds": [
                 4,
                 3,
@@ -190,7 +190,7 @@ const myDevices =
             "productType": "SBC",
             "adminState": "UNLOCKED",
             "operState": "AVAILABLE",
-            "status" : "ERROR",
+            "status" : "OK",
             "linkedGeoPointIds": [
                 12,
                 6,
@@ -205,7 +205,7 @@ const myDevices =
             "filtered": true,
             "marker": true,
             "productType": "UNKNOWN",
-            "adminState": "UNLOCKED",
+            "adminState": "LOCKED",
             "operState": "AVAILABLE",
             "status" : "OK",
             "linkedGeoPointIds": [
@@ -224,7 +224,7 @@ const myDevices =
             "productType": "SBC",
             "adminState": "UNLOCKED",
             "operState": "AVAILABLE",
-            "status" : "ERROR",
+            "status" : "OK",
             "linkedGeoPointIds": [
                 13,
                 10,
@@ -281,7 +281,7 @@ const myDevices =
             "productType": "UNKNOWN",
             "adminState": "UNLOCKED",
             "operState": "AVAILABLE",
-            "status" : "ERROR",
+            "status" : "OK",
             "linkedGeoPointIds": [
                 13,
                 17,
@@ -300,7 +300,7 @@ const myDevices =
             "productType": "GW",
             "adminState": "UNLOCKED",
             "operState": "AVAILABLE",
-            "status" : "ERROR",
+            "status" : "WARNING",
             "linkedGeoPointIds": [
                 12,
                 7
@@ -316,7 +316,7 @@ const myDevices =
             "productType": "SBC",
             "adminState": "UNLOCKED",
             "operState": "AVAILABLE",
-            "status" : "OK",
+            "status" : "ERROR",
             "linkedGeoPointIds": [
                 15,
                 2,
@@ -335,7 +335,7 @@ const myDevices =
             "productType": "SBC",
             "adminState": "UNLOCKED",
             "operState": "AVAILABLE",
-            "status" : "ERROR",
+            "status" : "OK",
             "linkedGeoPointIds": [
                 19,
                 1,

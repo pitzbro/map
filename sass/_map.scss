@@ -1,11 +1,17 @@
-/*-----Tooltips-----*/
+.map {
+    height: calc(100% - 47px);
+    width: 100%;
+    position: relative;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/*------Aggregator links --------*/
 
 .leaflet-tooltip-pane {
     z-index: 550;
 }
 
 .leaflet-tooltip {
-    /*box-sizing: border-box;*/
     border-radius: 5px;
     border: 1px solid rgba(82, 171, 0, 0.55);
     padding: 0;
@@ -13,7 +19,6 @@
     width: 20px;
     height: 18px;
     opacity: 1 !important;
-    /*text-align: center;*/
     span {
         display: block;
         line-height: 20px;
@@ -60,7 +65,7 @@
 }
 
 
-/*------Aggregator links--------*/
+/*------Aggregator links Popups--------*/
 
 .agg-link {
     line-height: 16px;
@@ -92,11 +97,13 @@
 }
 
 
-/*-------pathes------*/
+/*-------Links------*/
 
 path {
+    transition: stroke-width 0.3s;
     &.status0 {
         stroke: $default-color;
+        stroke: -webkit-linear-gradient(top, #ff3232 0%,#ff3030 44%,#000000 44%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
     }
     &.status10 {
         stroke: $warning-color;
@@ -104,16 +111,38 @@ path {
     &.status20 {
         stroke: $error-color;
     }
+    &:hover {
+        stroke-width: 8px;
+    }
 }
-
 
 /*-------Devices------*/
 
-.myDivIcon {
+.device {
+    border-radius: 50%;
     svg {
+        // position: relative;
+        // top: -100%;
+        // left: -100%;
+        // width: 40px;
+        // height: 40px;
         border-radius: 50%;
-        box-sizing: border-box;
+        // box-sizing: border-box;
         transition: box-shadow 0.3s;
+    }
+    polygon, path, rect {fill:#FFFFFF;} 
+    .circle{fill:#34B3E7;}
+    .normal{display:inline;}
+    .locked{display:none;}
+    .lines {display: none;}
+    &.locked {
+        .normal{display: none;}
+        .locked{display: inline;}
+        .lines {display: inline;} 
+        .circle {
+            stroke-width: 2px;
+            stroke: #fff;
+        } 
     }
     &.status0 svg {
         &:hover {
@@ -141,52 +170,39 @@ path {
     }
 }
 
-.myDivIcon svg {
-    position: relative;
-    top: -100%;
-    left: -100%;
-    width: 40px;
-    height: 40px;
-}
-
-.myDivIcon .lines {
-    display: none;
-}
 
 
-/*-------Devices------*/
 
-.leaflet-marker-icon {
+/*-------Clusters------*/
+
+.cluster {
+    span {
+        line-height: 30px;
+        color: white;
+    }
     &.status0 {
         background-color: transparentize($default-color, 0.6);
+        div {
+            background-color: transparentize($default-color, 0.2);
+        }
     }
     &.status10 {
         background-color: transparentize($warning-color, 0.6);
+        div {
+            background-color: transparentize($warning-color, 0.2);
+        }
     }
     &.status20 {
         background-color: transparentize($error-color, 0.6);
+        div {
+            background-color: transparentize($error-color, 0.2);
+        }
     }
 }
 
-.leaflet-marker-icon {
-    &.status0 div {
-        background-color: transparentize($default-color, 0.2);
-    }
-    &.status10 div {
-        background-color: transparentize($warning-color, 0.2);
-    }
-    &.status20 div {
-        background-color: transparentize($error-color, 0.2);
-    }
-}
-
-.marker-cluster span {
-    line-height: 30px;
-    color: white;
-}
+/*-------Device Popups------*/
 
 .popup-marker {
-    .key {}
     .value {
         font-weight: bold;
     }
@@ -203,24 +219,4 @@ path {
             }
         }
     }
-}
-
-.leaflet-container {
-    font-style: normal;
-    font-variant-ligatures: normal;
-    font-variant-caps: normal;
-    font-variant-numeric: normal;
-    font-weight: normal;
-    font-stretch: normal;
-    font-size: 12px;
-    line-height: 1.5;
-    font-family: 'Open Sans', sans-serif;
-}
-
-// polygon:focus {
-//     fill: #FFFFFF;
-//     outline: 0;
-// }
-:focus {
-    outline: 0;
 }
