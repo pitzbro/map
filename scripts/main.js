@@ -17,17 +17,19 @@ function initMap() {
     var osmAttrib = 'Map data © <a href="https://openstcontaineetmap.org">OpenStreetMap</a> contributors';
     //Mixed Content http vs https
     var cartoUrl = 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
-    var cartoAttrib = 'Map data &copy; OpenStreetMap contributors';
+    // var cartoAttrib = 'Map data &copy; OpenStreetMap contributors';
+    var cartoAttrib = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
 
     // creating the base layers for the map and minimap
-    var baseLayer = new L.tileLayer(cartoUrl, { minZoom: 2, maxZoom: 18, attribution: cartoAttrib });
+    var baseLayer = new L.tileLayer(cartoUrl, { subdomains: 'abcd', minZoom: 2, maxZoom: 18, attribution: cartoAttrib });
     var miniMapBaseLayer = new L.tileLayer(cartoUrl, { minZoom: 0, maxZoom: 13, attribution: cartoAttrib });
 
-    var osm = new L.TileLayer(osmUrl, { minZoom: 3, maxZoom: 19, attribution: osmAttrib });
+    var osm = new L.TileLayer(osmUrl, { minZoom: 2, maxZoom: 18, attribution: osmAttrib });
 
     map.setView(new L.LatLng(START_CENTER.lat, START_CENTER.lng), 4);
-    map.addLayer(osm);
-    // map.addLayer(baseLayer);
+    // map.addLayer(osm);
+    map.addLayer(baseLayer);
+    // miniMap.addLayer(baseLayer);
     // L.control.layers(baseLayer).addTo(map);
 
     //Plugin magic goes here! Note that you cannot use the same layer object again, as that will confuse the two map controls
@@ -83,41 +85,13 @@ function initMap() {
 }
 
 
-//Default functionality
-// _defaultIconCreateFunction: function (cluster) {
-// 	var childCount = cluster.getChildCount();
-
-// 	var c = ' marker-cluster-';
-// 	if (childCount < 10) {
-// 		c += 'small';
-// 	} else if (childCount < 100) {
-// 		c += 'medium';
-// 	} else {
-// 		c += 'large';
-// 	}
-
-// 	return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
-// },
-
-// function test(cluster) {
-//             var childCount = cluster.getChildCount();
-// 		    var c = ' marker-cluster-';
-//             if (childCount < 10) {
-//                 c += 'small';
-//             } else if (childCount < 100) {
-//                 c += 'medium'; 
-//             } else {
-//                 c += 'large';
-//             }
-//             return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
-// }
-
 function getPointsAndLinks() {
     // we are going to combine points and links so
     // that each point will "know" its connections
     var cluster = L.markerClusterGroup({
         removeOutsideVisibleBounds: false,
         maxClusterRadius: 80,
+        polygonOptions: { color: 'transparent', fill: true, fillColor: '#ff7800', fillOpacity: 0.5, opacity: 1, className: 'cluster-bounds' },
         iconCreateFunction: function(cluster) {
             var devices = cluster.getAllChildMarkers();
             var childCount = cluster.getChildCount();
@@ -132,7 +106,10 @@ function getPointsAndLinks() {
             } else {
                 c += 'large';
             }
-            return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: `marker-cluster status${maxSeverityLevels}`, iconSize: new L.Point(40, 40) });
+            return new L.DivIcon({ 
+                html: '<div><span>' + childCount + '</span></div>', 
+                className: `cluster marker-cluster status${maxSeverityLevels}`, 
+                iconSize: new L.Point(40, 40) });
         }
     });
 
@@ -165,26 +142,19 @@ function getPointsAndLinks() {
 //sets icon visual preferences 
 function createIcons(geoPoints, cluster) {
 
-    var LeafIcon = L.Icon.extend({
-        options: {
-            shadowUrl: 'images/shadow.png',
-            iconSize: [45, 45], // size of the icon
-            shadowSize: [50, 50], // size of the shadow
-            iconAnchor: [22.5, 22.5], // point of the icon which will correspond to marker's location
-            shadowAnchor: [23, 30], // the same for the shadow
-            popupAnchor: [-7, -56] // point from which the popup should open relative to the iconAnchor
-        }
-    });
-
     geoPoints.forEach(function(point) {
         var pointll = new L.LatLng(point.lat, point.lon, true);
         var icon = getIcon(point.productType);
         var severityLevel = getstatusSeverityLevel(point.status);
-        // var marker = new L.Marker(pointll, { icon: icon });
-        var divIcon = new L.divIcon({ className: `myDivIcon status${severityLevel}`, html: icon });
+
+        var adminStatus = point.adminState.toLowerCase();
+
+        var divIcon = new L.divIcon({ 
+            className: `device status${severityLevel} ${adminStatus}`, 
+            iconSize: [40, 40], 
+            html: icon });
         var marker = new L.Marker(pointll, { icon: divIcon });
-        // marker.bindPopup(`<img src="images/popupDevice.jpg"><div>Device ID ${point.id}</div>`);
-        console.log('point : ', point);
+
         marker.bindPopup(`<div class="popup-marker">
                             <ul style="list-style-type: none;>
                                 <li class="title"><b>${point.name}</b></li>
