@@ -8,7 +8,11 @@
   src: local("Open Sans"), local("OpenSans"), url("../Open_Sans/OpenSans-Regular.ttf") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215; }
 
-/* Components */
+input {
+  font-family: 'Open Sans', sans-serif;
+  padding: 5px;
+  width: 300px; }
+
 html,
 body {
   height: 100%; }
@@ -61,6 +65,7 @@ button {
 .main-nav li a:hover:not(.active) {
   background: buttonface; }
 
+/* Components */
 .map {
   height: calc(100% - 47px);
   width: 100%;
@@ -221,3 +226,9 @@ path {
     cursor: pointer; }
     .popup-marker .icon:hover circle {
       fill: #E0F3FA; }
+
+.map-search {
+  position: fixed;
+  left: 50px;
+  bottom: 50px;
+  z-index: 500; }

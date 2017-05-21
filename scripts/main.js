@@ -85,35 +85,6 @@ function initMap() {
 }
 
 
-//Default functionality
-// _defaultIconCreateFunction: function (cluster) {
-// 	var childCount = cluster.getChildCount();
-
-// 	var c = ' marker-cluster-';
-// 	if (childCount < 10) {
-// 		c += 'small';
-// 	} else if (childCount < 100) {
-// 		c += 'medium';
-// 	} else {
-// 		c += 'large';
-// 	}
-
-// 	return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
-// },
-
-// function test(cluster) {
-//             var childCount = cluster.getChildCount();
-// 		    var c = ' marker-cluster-';
-//             if (childCount < 10) {
-//                 c += 'small';
-//             } else if (childCount < 100) {
-//                 c += 'medium'; 
-//             } else {
-//                 c += 'large';
-//             }
-//             return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
-// }
-
 function getPointsAndLinks() {
     // we are going to combine points and links so
     // that each point will "know" its connections

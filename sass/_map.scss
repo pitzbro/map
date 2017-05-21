@@ -220,3 +220,10 @@ path {
         }
     }
 }
+
+.map-search {
+    position: fixed;
+    left: 50px;
+    bottom: 50px;
+    z-index: 500;
+}
