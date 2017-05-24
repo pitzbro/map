@@ -16,7 +16,16 @@ main {
 }
 
 button {
-    background-color: orange;
+    background-color: $warning-color;
+    border: none;
+    height: 32px;
+    padding: 0 10px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    &:hover {
+        background-color: $default-color;
+        // color: #fff;
+    }
 }
 
 .input-container {
@@ -58,4 +67,8 @@ button {
 
 .main-nav li a:hover:not(.active) {
     background: buttonface;
+}
+
+.flex {
+    display: flex;
 }

@@ -221,9 +221,12 @@ path {
     }
 }
 
-.map-search {
+.map-controls {
     position: fixed;
     left: 50px;
     bottom: 50px;
     z-index: 500;
+    > * {
+        margin-right: 15px;
+    }
 }
