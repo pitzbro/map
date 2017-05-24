@@ -3,11 +3,25 @@
 // Global Map
 var map;
 
-var DISTANCE = 5000000;
+//Getting assets - later change to server request
+var geoPoints = myDevices;
+var geoLinks = myLinks;
+
+// Getting Devices lat lon for centering map (with map.fitBounds(bounds))
+var bounds = [];
+
+function getBounds(geoPoints) {
+    bounds = geoPoints.map( point => [point.lat, point.lon]);
+    console.log('got bounds', bounds)
+}
+getBounds(geoPoints);
+
+function centerMap() {
+    console.log('map', map, 'bounds', bounds);
+    map.fitBounds(bounds);
+}
 
 function initMap() {
-    // start the map in USA
-    var START_CENTER = { lat: 38.86316, lng: -95.673907 };
 
     // set up the map
     map = new L.Map('map');
@@ -26,7 +40,8 @@ function initMap() {
 
     var osm = new L.TileLayer(osmUrl, { minZoom: 2, maxZoom: 18, attribution: osmAttrib });
 
-    map.setView(new L.LatLng(START_CENTER.lat, START_CENTER.lng), 4);
+    // map.setView(new L.LatLng(START_CENTER.lat, START_CENTER.lng), 4);
+    map.fitBounds(bounds);
     // map.addLayer(osm);
     map.addLayer(baseLayer);
     // miniMap.addLayer(baseLayer);
@@ -116,7 +131,6 @@ function getPointsAndLinks() {
     // marker-cluster ${c} 
 
     // points data IRL will be fetched from server 
-    var geoPoints = myDevices;
 
     var currCenter = map.getCenter();
 
@@ -128,8 +142,6 @@ function getPointsAndLinks() {
     });
 
     // links data IRL will be fetched from server
-    var geoLinks = myLinks;
-
 
     createIcons(geoPoints, cluster);
 

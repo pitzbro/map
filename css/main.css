@@ -11,7 +11,8 @@
 input {
   font-family: 'Open Sans', sans-serif;
   padding: 5px;
-  width: 300px; }
+  width: 300px;
+  color: #000; }
 
 html,
 body {
@@ -28,7 +29,14 @@ main {
   flex-direction: column; }
 
 button {
-  background-color: orange; }
+  background-color: #f9a11b;
+  border: none;
+  height: 32px;
+  padding: 0 10px;
+  transition: background-color 0.2s;
+  cursor: pointer; }
+  button:hover {
+    background-color: #43ab0e; }
 
 .input-container {
   position: fixed;
@@ -64,6 +72,9 @@ button {
 
 .main-nav li a:hover:not(.active) {
   background: buttonface; }
+
+.flex {
+  display: flex; }
 
 /* Components */
 .map {
@@ -227,8 +238,10 @@ path {
     .popup-marker .icon:hover circle {
       fill: #E0F3FA; }
 
-.map-search {
+.map-controls {
   position: fixed;
   left: 50px;
   bottom: 50px;
   z-index: 500; }
+  .map-controls > * {
+    margin-right: 15px; }

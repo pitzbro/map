@@ -13,7 +13,7 @@
 	<!--<link rel="stylesheet" href="css/maps.css" />-->
 	<!--<link rel="stylesheet" href="css/mbStyle.css" />-->
 	<link rel="stylesheet" href="css/main.css" />
-	  
+
 </head>
 
 <body onload="initMap()">
@@ -28,8 +28,11 @@
 
 	<div id="map" class="map">
 
-	<input class="map-search" type="search" name="mapsearch" placeholder="get location">
-	
+		<div class="map-controls flex">
+			<input class="map-search" type="search" name="mapsearch" placeholder="get location">
+			<button class="center-map" onclick="centerMap()">Center Map</button>
+		</div>
+
 	</div>
 
 
