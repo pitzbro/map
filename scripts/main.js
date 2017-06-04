@@ -7,17 +7,33 @@ var map;
 var geoPoints = myDevices;
 var geoLinks = myLinks;
 
+var selectedDevices = [];
+
+var deviceOnClick = marker => {
+    console.log('got marker', marker);
+    marker._icon.classList.toggle('selected');
+    marker.selected ? unSelectMarker(marker) : selectMarker(marker);
+}
+
+var selectMarker = marker => {
+    marker.selected = true;
+    selectedDevices.push(marker.device);
+}
+
+var unSelectMarker = marker => {
+    marker.selected = false;
+    selectedDevices.filter(device => device === marker.device);
+}
+
 // Getting Devices lat lon for centering map (with map.fitBounds(bounds))
 var bounds = [];
 
 function getBounds(geoPoints) {
-    bounds = geoPoints.map( point => [point.lat, point.lon]);
-    console.log('got bounds', bounds)
+    bounds = geoPoints.map(point => [point.lat, point.lon]);
 }
 getBounds(geoPoints);
 
 function centerMap() {
-    console.log('map', map, 'bounds', bounds);
     map.fitBounds(bounds);
 }
 
@@ -37,22 +53,28 @@ function initMap() {
     // creating the base layers for the map and minimap
     var baseLayer = new L.tileLayer(cartoUrl, { subdomains: 'abcd', minZoom: 2, maxZoom: 18, attribution: cartoAttrib });
     var miniMapBaseLayer = new L.tileLayer(cartoUrl, { minZoom: 0, maxZoom: 13, attribution: cartoAttrib });
+    var Esri_WorldStreetMap = new L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        minZoom: 2, maxZoom: 18, attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+    });
+    var miniMap_Esri_WorldStreetMap = new L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        minZoom: 0, maxZoom: 13, attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+    });
 
     var osm = new L.TileLayer(osmUrl, { minZoom: 2, maxZoom: 18, attribution: osmAttrib });
 
     // map.setView(new L.LatLng(START_CENTER.lat, START_CENTER.lng), 4);
     map.fitBounds(bounds);
     // map.addLayer(osm);
-    map.addLayer(baseLayer);
+    map.addLayer(Esri_WorldStreetMap);
     // miniMap.addLayer(baseLayer);
     // L.control.layers(baseLayer).addTo(map);
 
     //Plugin magic goes here! Note that you cannot use the same layer object again, as that will confuse the two map controls
-    var miniMap = new L.Control.MiniMap(miniMapBaseLayer).addTo(map);
+    var miniMap = new L.Control.MiniMap(miniMap_Esri_WorldStreetMap).addTo(map);
 
-    map.on('baselayerchange', function(e) {
-        miniMap.changeLayer(miniMapBaseLayer);
-    })
+    // map.on('baselayerchange', function (e) {
+    //     miniMap.changeLayer(miniMapBaseLayer);
+    // })
 
     // var defaultLayer = L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
 
@@ -107,7 +129,7 @@ function getPointsAndLinks() {
         removeOutsideVisibleBounds: false,
         maxClusterRadius: 80,
         polygonOptions: { color: 'transparent', fill: true, fillColor: '#ff7800', fillOpacity: 0.5, opacity: 1, className: 'cluster-bounds' },
-        iconCreateFunction: function(cluster) {
+        iconCreateFunction: function (cluster) {
             var devices = cluster.getAllChildMarkers();
             var childCount = cluster.getChildCount();
             var maxSeverityLevels = getMaxSeverityLevel(devices);
@@ -121,10 +143,11 @@ function getPointsAndLinks() {
             } else {
                 c += 'large';
             }
-            return new L.DivIcon({ 
-                html: '<div><span>' + childCount + '</span></div>', 
-                className: `cluster marker-cluster status${maxSeverityLevels}`, 
-                iconSize: new L.Point(40, 40) });
+            return new L.DivIcon({
+                html: '<div><span>' + childCount + '</span></div>',
+                className: `cluster marker-cluster status${maxSeverityLevels}`,
+                iconSize: new L.Point(40, 40)
+            });
         }
     });
 
@@ -136,7 +159,7 @@ function getPointsAndLinks() {
 
     var geoPointsMap = {};
 
-    geoPoints.forEach(function(point) {
+    geoPoints.forEach(function (point) {
         point.linkedGeoPointIds = [];
         geoPointsMap[point.id] = point;
     });
@@ -147,25 +170,30 @@ function getPointsAndLinks() {
 
     drawLines(geoLinks, cluster);
 
-    cluster.on('animationend', function() { drawLines(geoLinks, cluster) });
+    cluster.on('animationend', function () { drawLines(geoLinks, cluster) });
 
 }
 
 //sets icon visual preferences 
 function createIcons(geoPoints, cluster) {
 
-    geoPoints.forEach(function(point) {
+    geoPoints.forEach(function (point) {
         var pointll = new L.LatLng(point.lat, point.lon, true);
         var icon = getIcon(point.productType);
+        //adding the tooltip
+        // console.log('generating icon', icon)
+        icon += `<div class="tooltip marker-tooltip">${point.name}</div>`;
         var severityLevel = getstatusSeverityLevel(point.status);
 
         var adminStatus = point.adminState.toLowerCase();
 
-        var divIcon = new L.divIcon({ 
-            className: `device status${severityLevel} ${adminStatus}`, 
-            iconSize: [40, 40], 
-            html: icon });
-        var marker = new L.Marker(pointll, { icon: divIcon });
+        var divIcon = new L.divIcon({
+            className: `device status${severityLevel} ${adminStatus}`,
+            iconSize: [40, 40],
+            popupAnchor: [0, -30],
+            html: icon
+        });
+        var marker = new L.Marker(pointll, { icon: divIcon, riseOnHover: true });
 
         marker.bindPopup(`<div class="popup-marker">
                             <ul style="list-style-type: none;>
@@ -188,6 +216,9 @@ function createIcons(geoPoints, cluster) {
                          </div>`);
         marker.geoPointId = point.id;
         marker.statusSeverityLevel = severityLevel;
+        marker.device = point;
+
+        marker.on("click", event => deviceOnClick(event.target));
 
         cluster.addLayer(marker);
     });
@@ -289,7 +320,7 @@ function drawLines(links, cluster) {
     // fourth, make a copy of the links but replace the 'from' and 'to':
     // instead of geoPointId we save the element`s _leaflet_id, so
     // the latlngs will be drawn from the elements` position on the map
-    var visibleLinks = links.reduce(function(acc, link) {
+    var visibleLinks = links.reduce(function (acc, link) {
 
         var newLink = Object.assign({}, link); // TODO: replace es6 or bring polyfill
 
@@ -377,12 +408,12 @@ function getVisiblePointsMap(points) {
         var element = points[llId];
 
         // if it's a marker (and not a cluster) - set it's id as the value and the geoPointId as the key
-        if (!isNaN(element.geoPointId) /* id could be zero */ ) {
+        if (!isNaN(element.geoPointId) /* id could be zero */) {
             visiblePointsMap[element.geoPointId] = +llId;
         }
         // if it's a cluster - set it's id as the value for all it's geoPoints Ids (set them as keys)
         else {
-            element.getAllChildMarkers().forEach(function(marker) {
+            element.getAllChildMarkers().forEach(function (marker) {
                 visiblePointsMap[marker.geoPointId] = +llId;
             })
         }
