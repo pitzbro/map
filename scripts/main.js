@@ -10,7 +10,6 @@ var geoLinks = myLinks;
 var selectedDevices = [];
 
 var deviceOnClick = marker => {
-    console.log('got marker', marker);
     marker._icon.classList.toggle('selected');
     marker.selected ? unSelectMarker(marker) : selectMarker(marker);
 }
