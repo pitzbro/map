@@ -208,7 +208,9 @@ path {
     fill: #ec2437; }
   .device.selected svg, .device.selected svg:hover {
     box-shadow: inset 0 0 0px 1px #fff;
-    transform: scale(1.2, 1.2); }
+    transform: scale(1.2, 1.2);
+    box-shadow: inset 0 0 0px 1px #607D8B;
+    background: #fff; }
   .device .tooltip {
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid #b4b4b4;

@@ -176,6 +176,10 @@ path {
     &.selected svg, &.selected svg:hover {
         box-shadow: inset 0 0 0px 1px #fff;
         transform: scale(1.2, 1.2);
+
+        //changes to see on Esri Map
+        box-shadow: inset 0 0 0px 1px #607D8B;
+        background: #fff;
     }
     .tooltip {
         // display: none;

@@ -294,6 +294,7 @@ const myDevices =
             "lat": 25.763757, 
             "lon": -80.192553,
             "id": 16,
+            "selected": false,
             "name": "4C4g6",
             "filtered": true,
             "marker": true,

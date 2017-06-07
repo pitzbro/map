@@ -7,21 +7,29 @@ var map;
 var geoPoints = myDevices;
 var geoLinks = myLinks;
 
-var selectedDevices = [];
+var selectedMarkers = [];
 
 var deviceOnClick = marker => {
     marker._icon.classList.toggle('selected');
-    marker.selected ? unSelectMarker(marker) : selectMarker(marker);
+    marker.device.selected ? unSelectMarker(marker) : selectMarker(marker);
 }
 
 var selectMarker = marker => {
-    marker.selected = true;
-    selectedDevices.push(marker.device);
+    marker.device.selected = true;
+    selectedMarkers.push(marker);
+    // console.log('selecting Device ', marker.device.id, 'new array', selectedMarkers);
 }
 
 var unSelectMarker = marker => {
-    marker.selected = false;
-    selectedDevices.filter(device => device === marker.device);
+    marker.device.selected = false;
+    selectedMarkers = selectedMarkers.filter(myMarker => myMarker.device.id !== marker.device.id);
+    // console.log('unSelecting Device ', marker.device.id, 'new array', selectedMarkers);
+}
+
+function indicateSelectedMarkers(markers) {
+    markers.forEach(marker => {
+        if(marker._icon) marker._icon.classList.add('selected');
+    })
 }
 
 // Getting Devices lat lon for centering map (with map.fitBounds(bounds))
@@ -169,7 +177,10 @@ function getPointsAndLinks() {
 
     drawLines(geoLinks, cluster);
 
-    cluster.on('animationend', function () { drawLines(geoLinks, cluster) });
+    cluster.on('animationend', function () { 
+        indicateSelectedMarkers(selectedMarkers);
+        drawLines(geoLinks, cluster);
+    });
 
 }
 
@@ -181,13 +192,14 @@ function createIcons(geoPoints, cluster) {
         var icon = getIcon(point.productType);
         //adding the tooltip
         // console.log('generating icon', icon)
-        icon += `<div class="tooltip marker-tooltip">${point.name}</div>`;
+        icon += `<div class="tooltip marker-tooltip">${point.name}${point.selected}</div>`;
+
         var severityLevel = getstatusSeverityLevel(point.status);
 
         var adminStatus = point.adminState.toLowerCase();
 
         var divIcon = new L.divIcon({
-            className: `device status${severityLevel} ${adminStatus}`,
+            className: `device status${severityLevel} ${adminStatus} ${point.id}`,
             iconSize: [40, 40],
             popupAnchor: [0, -30],
             html: icon
