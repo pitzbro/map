@@ -173,7 +173,24 @@ path {
             fill: $error-color;
         }
     }
-    &.selected svg, &.selected svg:hover {
+
+
+    &:focus {
+        &.status0 svg {
+            box-shadow: inset 0 0 0px 3px transparentize($default-color, 0.4);
+        }
+        &.status10 svg {
+            box-shadow: inset 0 0 0px 3px transparentize($warning-color, 0.4);
+        }
+        &.status20 svg {
+            box-shadow: inset 0 0 0px 3px transparentize($error-color, 0.4);
+        }
+    }
+
+
+
+
+    &.selected svg, &.selected svg:hover, &.selected:focus svg {
         box-shadow: inset 0 0 0px 1px #fff;
         transform: scale(1.2, 1.2);
 
@@ -196,6 +213,9 @@ path {
         // bottom: 12px;
         // transition: opacity 0.3s;
 
+    }
+    &:focus {
+        outline: none;
     }
     &:hover {
         .tooltip {
@@ -237,7 +257,16 @@ path {
 
 /*-------Device Popups------*/
 
-.popup-marker {
+.device-popup {
+
+    width: 210px;
+
+    .leaflet-popup-tip-container {
+        transform: rotate(-90deg);
+        right: -30px;
+        left: auto;
+        bottom: 18px;
+    }
     .value {
         font-weight: bold;
     }

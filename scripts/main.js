@@ -28,7 +28,7 @@ var unSelectMarker = marker => {
 
 function indicateSelectedMarkers(markers) {
     markers.forEach(marker => {
-        if(marker._icon) marker._icon.classList.add('selected');
+        if (marker._icon) marker._icon.classList.add('selected');
     })
 }
 
@@ -177,7 +177,7 @@ function getPointsAndLinks() {
 
     drawLines(geoLinks, cluster);
 
-    cluster.on('animationend', function () { 
+    cluster.on('animationend', function () {
         indicateSelectedMarkers(selectedMarkers);
         drawLines(geoLinks, cluster);
     });
@@ -201,12 +201,14 @@ function createIcons(geoPoints, cluster) {
         var divIcon = new L.divIcon({
             className: `device status${severityLevel} ${adminStatus} ${point.id}`,
             iconSize: [40, 40],
-            popupAnchor: [0, -30],
+            // popupAnchor: [0, -30],
+            popupAnchor: [-145, 40],
             html: icon
         });
         var marker = new L.Marker(pointll, { icon: divIcon, riseOnHover: true });
 
-        marker.bindPopup(`<div class="popup-marker">
+        var devicePopup = L.popup({ className: 'device-popup' })
+            .setContent(`<div class="popup-marker">
                             <ul style="list-style-type: none;>
                                 <li class="title"><b>${point.name}</b></li>
                                 <li><span class="key">IP address</span> : <span class="value">${point.id}</span></li>
@@ -222,14 +224,14 @@ function createIcons(geoPoints, cluster) {
                              <div class="icon">${svgActionsIcons.edit}</div>
                              <div class="icon">${svgActionsIcons.locked}</div>
                             </div>
-
-
                          </div>`);
+
+        marker.bindPopup(devicePopup);
         marker.geoPointId = point.id;
         marker.statusSeverityLevel = severityLevel;
         marker.device = point;
 
-        marker.on("click", event => deviceOnClick(event.target));
+        marker.on("mousedown", event => {if (event.originalEvent.ctrlKey) deviceOnClick(event.target)});
 
         cluster.addLayer(marker);
     });
