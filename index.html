@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Esri World Map</title>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.4/dist/esri-leaflet-geocoder.css">
 
 	<!-- CSS -->
 	<!--<link rel="stylesheet" href="srcMiniMap/Control.MiniMap.css" />-->
@@ -29,7 +30,7 @@
 	<div id="map" class="map">
 
 		<div class="map-controls flex">
-			<input class="map-search" type="search" name="mapsearch" placeholder="get location">
+			<input class="map-search" type="search" name="mapsearch" placeholder="get location" onkeyup="onSuggest(event.target.value)">
 			<button class="center-map" onclick="centerMap()">Center Map</button>
 		</div>
 
@@ -37,6 +38,8 @@
 
 
 	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.4"></script>
 	<script src="scripts/leaflet-providers.js"></script>
 
 	<!-- Leaflet Plugins -->

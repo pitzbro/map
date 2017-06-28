@@ -2,7 +2,19 @@
 
 // Global Map
 var map;
+var myInit = { method: 'GET',
+               mode: 'cors',
+               cache: 'default' };
 
+function onSuggest(queryStr) {
+        console.log('queryStr', queryStr);
+        fetch('https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?outSr=4326&forStorage=false&outFields=*&maxLocations=5&singleLine=Netherlands&magicKey=dHA9MCNsb2M9MzY1NDU5NDMjbG5nPTMzI3BsPTMyNjUyMjQ5I2xicz0xNDoxNzUyMTQ5MQ%3D%3D&f=json', myInit)
+        .then(function(res) {
+            res.json().then((res) => {
+                console.log(res);
+            });
+        })
+};
 //Getting assets - later change to server request
 var geoPoints = myDevices;
 var geoLinks = myLinks;
@@ -72,6 +84,14 @@ function initMap() {
     //Plugin magic goes here! Note that you cannot use the same layer object again, as that will confuse the two map controls
     var miniMap = new L.Control.MiniMap(miniMap_Esri_WorldStreetMap).addTo(map);
 
+    var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+    
+    searchControl.on('results', function (data) {
+        console.log(L.esri.Geocoding.geocodeServiceProvider);
+        // if (marker) map.removeLayer(marker);
+        var marker = new L.Marker(data.results[0].latlng, {  riseOnHover: true })
+        map.addLayer(marker);
+    });
     // map.on('baselayerchange', function (e) {
     //     miniMap.changeLayer(miniMapBaseLayer);
     // })
