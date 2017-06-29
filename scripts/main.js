@@ -67,6 +67,10 @@ function initMap() {
         minZoom: 0, maxZoom: 13, attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
     });
 
+    // baseLayer.on("mouseover",function(e){console.log('mouse over base layer')});
+
+    map.on("mouseover", event => { console.log('OVER event', event)});
+
     var osm = new L.TileLayer(osmUrl, { minZoom: 2, maxZoom: 18, attribution: osmAttrib });
 
     // map.setView(new L.LatLng(START_CENTER.lat, START_CENTER.lng), 4);
@@ -231,7 +235,10 @@ function createIcons(geoPoints, cluster) {
         marker.statusSeverityLevel = severityLevel;
         marker.device = point;
 
-        marker.on("mousedown", event => {if (event.originalEvent.ctrlKey) deviceOnClick(event.target)});
+        marker.on("mouseout", event => {
+            console.log(event)
+            if (event.originalEvent.ctrlKey) deviceOnClick(event.target);
+        });
 
         cluster.addLayer(marker);
     });

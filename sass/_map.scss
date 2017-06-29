@@ -231,26 +231,40 @@ path {
 /*-------Clusters------*/
 
 .cluster {
+    background-color: #fff;
+    width: 29px;
+    height: 29px;
+    
+    div {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        margin: 0;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 50%;
+    }
     span {
         line-height: 30px;
         color: white;
     }
     &.status0 {
-        background-color: transparentize($default-color, 0.6);
+        border: solid 1px $default-color;
         div {
-            background-color: transparentize($default-color, 0.2);
+            background-color: $default-color;
         }
     }
     &.status10 {
-        background-color: transparentize($warning-color, 0.6);
+        border: solid 1px $warning-color;
         div {
-            background-color: transparentize($warning-color, 0.2);
+            background-color: $warning-color;
         }
     }
     &.status20 {
-        background-color: transparentize($error-color, 0.6);
+        border: solid 1px  $error-color;
         div {
-            background-color: transparentize($error-color, 0.2);
+            background-color: $error-color;
         }
     }
 }

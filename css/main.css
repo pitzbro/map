@@ -234,24 +234,34 @@ path {
     opacity: 1; }
 
 /*-------Clusters------*/
-.cluster span {
-  line-height: 30px;
-  color: white; }
-
-.cluster.status0 {
-  background-color: rgba(65, 183, 248, 0.4); }
-  .cluster.status0 div {
-    background-color: rgba(65, 183, 248, 0.8); }
-
-.cluster.status10 {
-  background-color: rgba(249, 161, 27, 0.4); }
-  .cluster.status10 div {
-    background-color: rgba(249, 161, 27, 0.8); }
-
-.cluster.status20 {
-  background-color: rgba(236, 36, 55, 0.4); }
-  .cluster.status20 div {
-    background-color: rgba(236, 36, 55, 0.8); }
+.cluster {
+  background-color: #fff;
+  width: 29px;
+  height: 29px; }
+  .cluster div {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%; }
+  .cluster span {
+    line-height: 30px;
+    color: white; }
+  .cluster.status0 {
+    border: solid 1px #41b7f8; }
+    .cluster.status0 div {
+      background-color: #41b7f8; }
+  .cluster.status10 {
+    border: solid 1px #f9a11b; }
+    .cluster.status10 div {
+      background-color: #f9a11b; }
+  .cluster.status20 {
+    border: solid 1px #ec2437; }
+    .cluster.status20 div {
+      background-color: #ec2437; }
 
 /*-------Device Popups------*/
 .device-popup {
