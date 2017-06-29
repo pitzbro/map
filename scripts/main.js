@@ -19,22 +19,29 @@ function onSuggest(queryStr) {
 var geoPoints = myDevices;
 var geoLinks = myLinks;
 
-var selectedDevices = [];
+var selectedMarkers = [];
 
 var deviceOnClick = marker => {
-    console.log('got marker', marker);
     marker._icon.classList.toggle('selected');
-    marker.selected ? unSelectMarker(marker) : selectMarker(marker);
+    marker.device.selected ? unSelectMarker(marker) : selectMarker(marker);
 }
 
 var selectMarker = marker => {
-    marker.selected = true;
-    selectedDevices.push(marker.device);
+    marker.device.selected = true;
+    selectedMarkers.push(marker);
+    // console.log('selecting Device ', marker.device.id, 'new array', selectedMarkers);
 }
 
 var unSelectMarker = marker => {
-    marker.selected = false;
-    selectedDevices.filter(device => device === marker.device);
+    marker.device.selected = false;
+    selectedMarkers = selectedMarkers.filter(myMarker => myMarker.device.id !== marker.device.id);
+    // console.log('unSelecting Device ', marker.device.id, 'new array', selectedMarkers);
+}
+
+function indicateSelectedMarkers(markers) {
+    markers.forEach(marker => {
+        if (marker._icon) marker._icon.classList.add('selected');
+    })
 }
 
 // Getting Devices lat lon for centering map (with map.fitBounds(bounds))
@@ -71,6 +78,10 @@ function initMap() {
     var miniMap_Esri_WorldStreetMap = new L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
         minZoom: 0, maxZoom: 13, attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
     });
+
+    // baseLayer.on("mouseover",function(e){console.log('mouse over base layer')});
+
+    map.on("mouseover", event => { console.log('OVER event', event)});
 
     var osm = new L.TileLayer(osmUrl, { minZoom: 2, maxZoom: 18, attribution: osmAttrib });
 
@@ -190,7 +201,10 @@ function getPointsAndLinks() {
 
     drawLines(geoLinks, cluster);
 
-    cluster.on('animationend', function () { drawLines(geoLinks, cluster) });
+    cluster.on('animationend', function () {
+        indicateSelectedMarkers(selectedMarkers);
+        drawLines(geoLinks, cluster);
+    });
 
 }
 
@@ -202,20 +216,23 @@ function createIcons(geoPoints, cluster) {
         var icon = getIcon(point.productType);
         //adding the tooltip
         // console.log('generating icon', icon)
-        icon += `<div class="tooltip marker-tooltip">${point.name}</div>`;
+        icon += `<div class="tooltip marker-tooltip">${point.name}${point.selected}</div>`;
+
         var severityLevel = getstatusSeverityLevel(point.status);
 
         var adminStatus = point.adminState.toLowerCase();
 
         var divIcon = new L.divIcon({
-            className: `device status${severityLevel} ${adminStatus}`,
+            className: `device status${severityLevel} ${adminStatus} ${point.id}`,
             iconSize: [40, 40],
-            popupAnchor: [0, -30],
+            // popupAnchor: [0, -30],
+            popupAnchor: [-145, 40],
             html: icon
         });
         var marker = new L.Marker(pointll, { icon: divIcon, riseOnHover: true });
 
-        marker.bindPopup(`<div class="popup-marker">
+        var devicePopup = L.popup({ className: 'device-popup' })
+            .setContent(`<div class="popup-marker">
                             <ul style="list-style-type: none;>
                                 <li class="title"><b>${point.name}</b></li>
                                 <li><span class="key">IP address</span> : <span class="value">${point.id}</span></li>
@@ -231,14 +248,17 @@ function createIcons(geoPoints, cluster) {
                              <div class="icon">${svgActionsIcons.edit}</div>
                              <div class="icon">${svgActionsIcons.locked}</div>
                             </div>
-
-
                          </div>`);
+
+        marker.bindPopup(devicePopup);
         marker.geoPointId = point.id;
         marker.statusSeverityLevel = severityLevel;
         marker.device = point;
 
-        marker.on("click", event => deviceOnClick(event.target));
+        marker.on("mouseout", event => {
+            console.log(event)
+            if (event.originalEvent.ctrlKey) deviceOnClick(event.target);
+        });
 
         cluster.addLayer(marker);
     });

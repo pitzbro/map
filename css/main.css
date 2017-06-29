@@ -36,7 +36,10 @@ button {
   transition: background-color 0.2s;
   cursor: pointer; }
   button:hover {
-    background-color: #43ab0e; }
+    background-color: #41b7f8; }
+
+ul {
+  padding: 0; }
 
 .input-container {
   position: fixed;
@@ -117,9 +120,9 @@ button {
   .leaflet-tooltip:before {
     display: none; }
   .leaflet-tooltip.status0 {
-    border-color: #43ab0e; }
+    border-color: #41b7f8; }
     .leaflet-tooltip.status0 span {
-      background-color: #43ab0e; }
+      background-color: #41b7f8; }
   .leaflet-tooltip.status10 {
     border-color: #f9a11b; }
     .leaflet-tooltip.status10 span {
@@ -139,7 +142,7 @@ button {
     height: 16px;
     margin-right: 8px; }
   .agg-link.status0 {
-    color: #43ab0e; }
+    color: #41b7f8; }
     .agg-link.status0:before {
       background-image: url("../assets/svg/links/sevirity-green.png"); }
   .agg-link.status10 {
@@ -155,7 +158,7 @@ button {
 path {
   transition: stroke-width 0.3s; }
   path.status0 {
-    stroke: #43ab0e;
+    stroke: #41b7f8;
     stroke: -webkit-linear-gradient(top, #ff3232 0%, #ff3030 44%, #000000 44%, #000000 100%);
     /* Chrome10-25,Safari5.1-6 */ }
   path.status10 {
@@ -195,9 +198,9 @@ path {
     stroke-width: 2px;
     stroke: #fff; }
   .device.status0 svg:hover {
-    box-shadow: inset 0 0 0px 3px rgba(67, 171, 14, 0.6); }
+    box-shadow: inset 0 0 0px 3px rgba(65, 183, 248, 0.6); }
   .device.status0 svg circle {
-    fill: #43ab0e; }
+    fill: #41b7f8; }
   .device.status10 svg:hover {
     box-shadow: inset 0 0 0px 3px rgba(249, 161, 27, 0.6); }
   .device.status10 svg circle {
@@ -206,58 +209,79 @@ path {
     box-shadow: inset 0 0 0px 3px rgba(236, 36, 55, 0.6); }
   .device.status20 svg circle {
     fill: #ec2437; }
-  .device.selected svg, .device.selected svg:hover {
+  .device:focus.status0 svg {
+    box-shadow: inset 0 0 0px 3px rgba(65, 183, 248, 0.6); }
+  .device:focus.status10 svg {
+    box-shadow: inset 0 0 0px 3px rgba(249, 161, 27, 0.6); }
+  .device:focus.status20 svg {
+    box-shadow: inset 0 0 0px 3px rgba(236, 36, 55, 0.6); }
+  .device.selected svg, .device.selected svg:hover, .device.selected:focus svg {
     box-shadow: inset 0 0 0px 1px #fff;
-    transform: scale(1.2, 1.2); }
+    transform: scale(1.2, 1.2);
+    box-shadow: inset 0 0 0px 1px #607D8B;
+    background: #fff; }
   .device .tooltip {
-    display: none;
-    opacity: 0;
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid #b4b4b4;
     font-size: 11px;
     padding: 0 10px;
     position: absolute;
-    right: 50px;
-    bottom: 12px;
-    transition: opacity 0.3s; }
+    top: -25px; }
+  .device:focus {
+    outline: none; }
   .device:hover .tooltip {
     display: block;
     opacity: 1; }
 
 /*-------Clusters------*/
-.cluster span {
-  line-height: 30px;
-  color: white; }
-
-.cluster.status0 {
-  background-color: rgba(67, 171, 14, 0.4); }
-  .cluster.status0 div {
-    background-color: rgba(67, 171, 14, 0.8); }
-
-.cluster.status10 {
-  background-color: rgba(249, 161, 27, 0.4); }
-  .cluster.status10 div {
-    background-color: rgba(249, 161, 27, 0.8); }
-
-.cluster.status20 {
-  background-color: rgba(236, 36, 55, 0.4); }
-  .cluster.status20 div {
-    background-color: rgba(236, 36, 55, 0.8); }
+.cluster {
+  background-color: #fff;
+  width: 29px;
+  height: 29px; }
+  .cluster div {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%; }
+  .cluster span {
+    line-height: 30px;
+    color: white; }
+  .cluster.status0 {
+    border: solid 1px #41b7f8; }
+    .cluster.status0 div {
+      background-color: #41b7f8; }
+  .cluster.status10 {
+    border: solid 1px #f9a11b; }
+    .cluster.status10 div {
+      background-color: #f9a11b; }
+  .cluster.status20 {
+    border: solid 1px #ec2437; }
+    .cluster.status20 div {
+      background-color: #ec2437; }
 
 /*-------Device Popups------*/
-.popup-marker .value {
-  font-weight: bold; }
-
-.popup-marker .icon-container {
-  display: flex;
-  justify-content: space-between; }
-
-.popup-marker .icon {
-  width: 16%; }
-  .popup-marker .icon:hover {
-    cursor: pointer; }
-    .popup-marker .icon:hover circle {
-      fill: #E0F3FA; }
+.device-popup {
+  width: 210px; }
+  .device-popup .leaflet-popup-tip-container {
+    transform: rotate(-90deg);
+    right: -30px;
+    left: auto;
+    bottom: 18px; }
+  .device-popup .value {
+    font-weight: bold; }
+  .device-popup .icon-container {
+    display: flex;
+    justify-content: space-between; }
+  .device-popup .icon {
+    width: 16%; }
+    .device-popup .icon:hover {
+      cursor: pointer; }
+      .device-popup .icon:hover circle {
+        fill: #E0F3FA; }
 
 .map-controls {
   position: fixed;
