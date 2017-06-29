@@ -234,7 +234,19 @@ path {
     background-color: #fff;
     width: 29px;
     height: 29px;
-    
+    overflow: hidden;
+
+    &.locked div:before {
+        content: "";
+        width: 50px;
+        height: 3px;
+        background: #fff;
+        position: absolute;
+        top: 15px;
+        left: -10px;
+        transform: rotate(-48deg);
+    }
+
     div {
         position: absolute;
         top: 2px;
@@ -244,26 +256,33 @@ path {
         height: 30px;
         line-height: 30px;
         border-radius: 50%;
+
     }
     span {
-        line-height: 30px;
+        line-height: 16px;
         color: white;
+        position: relative;
+        padding: 1px;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
     }
     &.status0 {
         border: solid 1px $default-color;
-        div {
+        div, span {
             background-color: $default-color;
         }
     }
     &.status10 {
         border: solid 1px $warning-color;
-        div {
+        div, span {
             background-color: $warning-color;
         }
     }
     &.status20 {
         border: solid 1px  $error-color;
-        div {
+        div, span {
             background-color: $error-color;
         }
     }

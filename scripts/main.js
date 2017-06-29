@@ -81,7 +81,7 @@ function initMap() {
 
     // baseLayer.on("mouseover",function(e){console.log('mouse over base layer')});
 
-    map.on("mouseover", event => { console.log('OVER event', event)});
+    // map.on("mouseover", event => { console.log('OVER event', event)});
 
     var osm = new L.TileLayer(osmUrl, { minZoom: 2, maxZoom: 18, attribution: osmAttrib });
 
@@ -159,11 +159,19 @@ function getPointsAndLinks() {
     var cluster = L.markerClusterGroup({
         removeOutsideVisibleBounds: false,
         maxClusterRadius: 80,
-        polygonOptions: { color: 'transparent', fill: true, fillColor: '#ff7800', fillOpacity: 0.5, opacity: 1, className: 'cluster-bounds' },
+        polygonOptions: { color: 'transparent', 
+                          fill: true, 
+                          fillColor: '#ff7800', 
+                          fillOpacity: 1, 
+                          opacity: 1, 
+                          className: 'cluster-bounds' },
         iconCreateFunction: function (cluster) {
             var devices = cluster.getAllChildMarkers();
             var childCount = cluster.getChildCount();
             var maxSeverityLevels = getMaxSeverityLevel(devices);
+            var lockedStatus = hasLocked(devices);
+            console.log('lockedStatus', lockedStatus);
+
             var c = ' marker-cluster-';
 
 
@@ -176,8 +184,8 @@ function getPointsAndLinks() {
             }
             return new L.DivIcon({
                 html: '<div><span>' + childCount + '</span></div>',
-                className: `cluster marker-cluster status${maxSeverityLevels}`,
-                iconSize: new L.Point(40, 40)
+                className: `cluster marker-cluster status${maxSeverityLevels} ${lockedStatus}`,
+                iconSize: new L.Point(30, 30)
             });
         }
     });
@@ -435,6 +443,11 @@ function getMaxSeverityLevel(arr) {
         if (item.statusSeverityLevel > maxSever) maxSever = item.statusSeverityLevel;
     })
     return maxSever;
+}
+
+function hasLocked(arr) {
+    var lockedNum = arr.filter(function(item) { return item.device.adminState == 'LOCKED'; }).length;
+    return (lockedNum >= 1)? 'locked' : '' ;
 }
 
 function getVisiblePointsMap(points) {

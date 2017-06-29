@@ -237,7 +237,17 @@ path {
 .cluster {
   background-color: #fff;
   width: 29px;
-  height: 29px; }
+  height: 29px;
+  overflow: hidden; }
+  .cluster.locked div:before {
+    content: "";
+    width: 50px;
+    height: 3px;
+    background: #fff;
+    position: absolute;
+    top: 15px;
+    left: -10px;
+    transform: rotate(-48deg); }
   .cluster div {
     position: absolute;
     top: 2px;
@@ -248,19 +258,25 @@ path {
     line-height: 30px;
     border-radius: 50%; }
   .cluster span {
-    line-height: 30px;
-    color: white; }
+    line-height: 16px;
+    color: white;
+    position: relative;
+    padding: 1px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%; }
   .cluster.status0 {
     border: solid 1px #41b7f8; }
-    .cluster.status0 div {
+    .cluster.status0 div, .cluster.status0 span {
       background-color: #41b7f8; }
   .cluster.status10 {
     border: solid 1px #f9a11b; }
-    .cluster.status10 div {
+    .cluster.status10 div, .cluster.status10 span {
       background-color: #f9a11b; }
   .cluster.status20 {
     border: solid 1px #ec2437; }
-    .cluster.status20 div {
+    .cluster.status20 div, .cluster.status20 span {
       background-color: #ec2437; }
 
 /*-------Device Popups------*/
