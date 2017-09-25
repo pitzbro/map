@@ -32,6 +32,10 @@
 		<div class="map-controls flex">
 			<input class="map-search" type="search" name="mapsearch" placeholder="get location" onkeyup="onSuggest(event.target.value)">
 			<button class="center-map" onclick="centerMap()">Center Map</button>
+			<label class="switch">
+				<input type="checkbox" onclick="toggleDragMode()">
+				<span class="slider round"></span>
+			</label>
 		</div>
 
 	</div>

@@ -231,38 +231,38 @@ path {
 /*-------Clusters------*/
 
 .cluster {
-    background-color: #fff;
+    // background-color: #fff;
     width: 29px;
     height: 29px;
     
     div {
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        margin: 0;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-        border-radius: 50%;
+        // position: absolute;
+        // top: 2px;
+        // right: 2px;
+        // margin: 0;
+        // width: 30px;
+        // height: 30px;
+        // line-height: 30px;
+        // border-radius: 50%;
     }
     span {
         line-height: 30px;
         color: white;
     }
     &.status0 {
-        border: solid 1px $default-color;
+        background-color: rgba( $default-color, .5 );
         div {
             background-color: $default-color;
         }
     }
     &.status10 {
-        border: solid 1px $warning-color;
+        background-color: rgba( $warning-color, .5 );
         div {
             background-color: $warning-color;
         }
     }
     &.status20 {
-        border: solid 1px  $error-color;
+        border: rgba( $error-color, .5 );
         div {
             background-color: $error-color;
         }
